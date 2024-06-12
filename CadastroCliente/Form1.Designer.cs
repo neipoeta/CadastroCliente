@@ -28,19 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.clienteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.novoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.editarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.excluirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.listBoxClientes = new System.Windows.Forms.ListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.maskedTextBoxTelefone = new System.Windows.Forms.MaskedTextBox();
             this.maskedTextBoxRegistro = new System.Windows.Forms.MaskedTextBox();
             this.buttonExcluir = new System.Windows.Forms.Button();
             this.buttonSalvar = new System.Windows.Forms.Button();
             this.radioButtonPessoaJuridica = new System.Windows.Forms.RadioButton();
             this.radioButtonPessoaFisica = new System.Windows.Forms.RadioButton();
             this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.Registro = new System.Windows.Forms.Label();
             this.Ano = new System.Windows.Forms.Label();
@@ -51,40 +47,16 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.clientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.salvarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.editarToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.excluirToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.editarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.excluirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.cllienteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.salvarToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.editaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.excluirrToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // clienteToolStripMenuItem
-            // 
-            this.clienteToolStripMenuItem.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.clienteToolStripMenuItem.Checked = true;
-            this.clienteToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.clienteToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.clienteToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.clienteToolStripMenuItem.Name = "clienteToolStripMenuItem";
-            this.clienteToolStripMenuItem.Size = new System.Drawing.Size(63, 23);
-            this.clienteToolStripMenuItem.Text = "Cliente";
-            // 
-            // novoToolStripMenuItem
-            // 
-            this.novoToolStripMenuItem.Name = "novoToolStripMenuItem";
-            this.novoToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
-            this.novoToolStripMenuItem.Text = "Novo";
-            // 
-            // editarToolStripMenuItem
-            // 
-            this.editarToolStripMenuItem.Name = "editarToolStripMenuItem";
-            this.editarToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
-            this.editarToolStripMenuItem.Text = "Editar";
-            // 
-            // excluirToolStripMenuItem
-            // 
-            this.excluirToolStripMenuItem.Name = "excluirToolStripMenuItem";
-            this.excluirToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
-            this.excluirToolStripMenuItem.Text = "Excluir";
             // 
             // listBoxClientes
             // 
@@ -96,13 +68,13 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.maskedTextBoxTelefone);
             this.groupBox1.Controls.Add(this.maskedTextBoxRegistro);
             this.groupBox1.Controls.Add(this.buttonExcluir);
             this.groupBox1.Controls.Add(this.buttonSalvar);
             this.groupBox1.Controls.Add(this.radioButtonPessoaJuridica);
             this.groupBox1.Controls.Add(this.radioButtonPessoaFisica);
             this.groupBox1.Controls.Add(this.textBox3);
-            this.groupBox1.Controls.Add(this.textBox2);
             this.groupBox1.Controls.Add(this.textBox1);
             this.groupBox1.Controls.Add(this.Registro);
             this.groupBox1.Controls.Add(this.Ano);
@@ -118,6 +90,14 @@
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Dados do Cliente";
+            // 
+            // maskedTextBoxTelefone
+            // 
+            this.maskedTextBoxTelefone.Location = new System.Drawing.Point(111, 165);
+            this.maskedTextBoxTelefone.Mask = "(00) 00000-0000";
+            this.maskedTextBoxTelefone.Name = "maskedTextBoxTelefone";
+            this.maskedTextBoxTelefone.Size = new System.Drawing.Size(195, 23);
+            this.maskedTextBoxTelefone.TabIndex = 18;
             // 
             // maskedTextBoxRegistro
             // 
@@ -135,6 +115,7 @@
             this.buttonExcluir.TabIndex = 14;
             this.buttonExcluir.Text = "Excluir";
             this.buttonExcluir.UseVisualStyleBackColor = true;
+            this.buttonExcluir.Visible = false;
             // 
             // buttonSalvar
             // 
@@ -145,6 +126,7 @@
             this.buttonSalvar.TabIndex = 13;
             this.buttonSalvar.Text = "Salvar";
             this.buttonSalvar.UseVisualStyleBackColor = true;
+            this.buttonSalvar.Click += new System.EventHandler(this.buttonSalvar_Click);
             // 
             // radioButtonPessoaJuridica
             // 
@@ -175,13 +157,6 @@
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(79, 23);
             this.textBox3.TabIndex = 9;
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(112, 162);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(179, 23);
-            this.textBox2.TabIndex = 8;
             // 
             // textBox1
             // 
@@ -216,7 +191,7 @@
             // 
             this.Telefone.AutoSize = true;
             this.Telefone.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.Telefone.Location = new System.Drawing.Point(41, 162);
+            this.Telefone.Location = new System.Drawing.Point(41, 168);
             this.Telefone.Name = "Telefone";
             this.Telefone.Size = new System.Drawing.Size(64, 17);
             this.Telefone.TabIndex = 3;
@@ -257,8 +232,9 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(965, 24);
-            this.menuStrip1.TabIndex = 0;
+            this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip1";
+            this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
             // 
             // clientesToolStripMenuItem
             // 
@@ -269,24 +245,62 @@
             // 
             // salvarToolStripMenuItem
             // 
+            this.salvarToolStripMenuItem.AutoSize = false;
+            this.salvarToolStripMenuItem.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.salvarToolStripMenuItem.Name = "salvarToolStripMenuItem";
             this.salvarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.salvarToolStripMenuItem.Text = "Salvar";
-            this.salvarToolStripMenuItem.Click += new System.EventHandler(this.salvarToolStripMenuItem_Click);
+            this.salvarToolStripMenuItem.Click += new System.EventHandler(this.salvarToolStripMenuItem_Click_1);
             // 
-            // editarToolStripMenuItem1
+            // editarToolStripMenuItem
             // 
-            this.editarToolStripMenuItem1.Name = "editarToolStripMenuItem1";
-            this.editarToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
-            this.editarToolStripMenuItem1.Text = "Editar";
-            this.editarToolStripMenuItem1.Click += new System.EventHandler(this.editarToolStripMenuItem1_Click);
+            this.editarToolStripMenuItem.Name = "editarToolStripMenuItem";
+            this.editarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.editarToolStripMenuItem.Text = "Editar";
+            this.editarToolStripMenuItem.Click += new System.EventHandler(this.editarToolStripMenuItem_Click);
             // 
-            // excluirToolStripMenuItem1
+            // excluirToolStripMenuItem
             // 
-            this.excluirToolStripMenuItem1.Name = "excluirToolStripMenuItem1";
-            this.excluirToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
-            this.excluirToolStripMenuItem1.Text = "Excluir";
-            this.excluirToolStripMenuItem1.Click += new System.EventHandler(this.excluirToolStripMenuItem1_Click);
+            this.excluirToolStripMenuItem.Name = "excluirToolStripMenuItem";
+            this.excluirToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.excluirToolStripMenuItem.Text = "Excluir";
+            this.excluirToolStripMenuItem.Click += new System.EventHandler(this.excluirToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem1.Text = "toolStripMenuItem1";
+            // 
+            // cllienteToolStripMenuItem
+            // 
+            this.cllienteToolStripMenuItem.Checked = true;
+            this.cllienteToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cllienteToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.cllienteToolStripMenuItem.DoubleClickEnabled = true;
+            this.cllienteToolStripMenuItem.Name = "cllienteToolStripMenuItem";
+            this.cllienteToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
+            this.cllienteToolStripMenuItem.Text = "Cliente";
+            this.cllienteToolStripMenuItem.Click += new System.EventHandler(this.cllienteToolStripMenuItem_Click);
+            // 
+            // salvarToolStripMenuItem1
+            // 
+            this.salvarToolStripMenuItem1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.salvarToolStripMenuItem1.Name = "salvarToolStripMenuItem1";
+            this.salvarToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.salvarToolStripMenuItem1.Text = "Salvar";
+            // 
+            // editaToolStripMenuItem
+            // 
+            this.editaToolStripMenuItem.Name = "editaToolStripMenuItem";
+            this.editaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.editaToolStripMenuItem.Text = "Editar";
+            // 
+            // excluirrToolStripMenuItem
+            // 
+            this.excluirrToolStripMenuItem.Name = "excluirrToolStripMenuItem";
+            this.excluirrToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.excluirrToolStripMenuItem.Text = "Excluir";
             // 
             // Form1
             // 
@@ -301,6 +315,7 @@
             this.Name = "Form1";
             this.Text = "Form1";
             this.TransparencyKey = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
@@ -311,16 +326,11 @@
         }
 
         #endregion
-        private System.Windows.Forms.ToolStripMenuItem clienteToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem novoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem editarToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem excluirToolStripMenuItem;
         private System.Windows.Forms.ListBox listBoxClientes;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label Nome;
         private System.Windows.Forms.TextBox textBoxNome;
         private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label Registro;
         private System.Windows.Forms.Label Ano;
@@ -334,8 +344,14 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem clientesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem salvarToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem editarToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem excluirToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem editarToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem excluirToolStripMenuItem;
+        private System.Windows.Forms.MaskedTextBox maskedTextBoxTelefone;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem cllienteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem salvarToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem editaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem excluirrToolStripMenuItem;
     }
 }
 

@@ -22,6 +22,8 @@ namespace CadastroCliente
             InicializandoCheckTipoCliente();
         }
 
+
+
         private void CarregarClientes()
         {
             clientes = new List<Cliente>();
@@ -71,7 +73,7 @@ namespace CadastroCliente
             if (cliente != null)
             {
                 textBoxNome.Text = cliente.Nome;
-                textBox2.Text = cliente.Telefone;
+                maskedTextBoxTelefone.Text = cliente.Telefone;
                 textBox1.Text = cliente.Endereco.RetornaEnderecoString();
                 textBox3.Text = cliente.AnoNascimento.ToString();
                 maskedTextBoxRegistro.Text = cliente.Registro;
@@ -99,23 +101,46 @@ namespace CadastroCliente
             }
         }
 
-        private void clientesToolStripMenuItem_Click(object sender, EventArgs e)
+        private void salvarToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
             CadastrarClienteForm frm = new CadastrarClienteForm();
             frm.Show();
         }
 
-        private void salvarToolStripMenuItem_Click(object sender, EventArgs e)
+        private void editarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //limpar campos box / carregar clientes / clique do cliente carregar no box as infos e visible btn salvar
+        }
+
+        private void excluirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CarregarClientes();
+            buttonExcluir.Visible = true;
+        }
+
+        private void clientesToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void editarToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void buttonSalvar_Click(object sender, EventArgs e)
+        {
+            CadastrarClienteForm frm = new CadastrarClienteForm();
+            frm.Show();
+        }
+
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            
+
+        }
+
+        private void cllienteToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void excluirToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void Form1_Load(object sender, EventArgs e)
         {
 
         }
