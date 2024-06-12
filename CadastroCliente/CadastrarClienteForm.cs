@@ -6,6 +6,7 @@ namespace CadastroCliente
 {
     public partial class CadastrarClienteForm : Form
     {
+        private bool clienteSalvo = false;
         public CadastrarClienteForm()
         {
             InitializeComponent();
@@ -15,6 +16,7 @@ namespace CadastroCliente
         private void buttonSalvar_Click(object sender, EventArgs e)
         {
             SalvarCliente();
+            clienteSalvo = true;
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
@@ -88,6 +90,7 @@ namespace CadastroCliente
         private void CadastrarClienteForm_Load(object sender, EventArgs e)
         {
             radioButtonPessoaFisica.Checked = true;
+            this.FormClosing += new FormClosingEventHandler(CadastrarClienteForm_FormClosing);
         }
 
         private void radioButtonPessoaFisica_CheckedChanged(object sender, EventArgs e)
@@ -104,5 +107,16 @@ namespace CadastroCliente
             }
         }
 
+        private void CadastrarClienteForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if(!clienteSalvo)
+            {
+                var result = MessageBox.Show("Cliente não foi salvo, fechar mesmo assim?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if(result == DialogResult.No)
+                {
+                    e.Cancel = true;
+                }
+            }
+        }
     }
 }

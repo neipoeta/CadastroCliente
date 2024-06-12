@@ -28,7 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CadastrarClienteForm));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textBoxUF = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.textBoxCidade = new System.Windows.Forms.TextBox();
+            this.Cidade = new System.Windows.Forms.Label();
             this.textBoxBairro = new System.Windows.Forms.TextBox();
             this.Bairro = new System.Windows.Forms.Label();
             this.textBoxNumero = new System.Windows.Forms.TextBox();
@@ -47,10 +52,6 @@
             this.Endereco = new System.Windows.Forms.Label();
             this.Nome = new System.Windows.Forms.Label();
             this.textBoxNome = new System.Windows.Forms.TextBox();
-            this.textBoxUF = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.textBoxCidade = new System.Windows.Forms.TextBox();
-            this.Cidade = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -87,6 +88,38 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Dados do Cliente";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // textBoxUF
+            // 
+            this.textBoxUF.Location = new System.Drawing.Point(412, 224);
+            this.textBoxUF.Name = "textBoxUF";
+            this.textBoxUF.Size = new System.Drawing.Size(76, 23);
+            this.textBoxUF.TabIndex = 27;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(380, 227);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(26, 17);
+            this.label4.TabIndex = 26;
+            this.label4.Text = "UF";
+            // 
+            // textBoxCidade
+            // 
+            this.textBoxCidade.Location = new System.Drawing.Point(129, 224);
+            this.textBoxCidade.Name = "textBoxCidade";
+            this.textBoxCidade.Size = new System.Drawing.Size(242, 23);
+            this.textBoxCidade.TabIndex = 25;
+            // 
+            // Cidade
+            // 
+            this.Cidade.AutoSize = true;
+            this.Cidade.Location = new System.Drawing.Point(65, 227);
+            this.Cidade.Name = "Cidade";
+            this.Cidade.Size = new System.Drawing.Size(52, 17);
+            this.Cidade.TabIndex = 24;
+            this.Cidade.Text = "Cidade";
             // 
             // textBoxBairro
             // 
@@ -147,11 +180,13 @@
             // buttonSalvar
             // 
             this.buttonSalvar.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.buttonSalvar.Location = new System.Drawing.Point(757, 303);
+            this.buttonSalvar.Image = ((System.Drawing.Image)(resources.GetObject("buttonSalvar.Image")));
+            this.buttonSalvar.Location = new System.Drawing.Point(772, 235);
             this.buttonSalvar.Name = "buttonSalvar";
-            this.buttonSalvar.Size = new System.Drawing.Size(75, 23);
+            this.buttonSalvar.Size = new System.Drawing.Size(82, 62);
             this.buttonSalvar.TabIndex = 13;
             this.buttonSalvar.Text = "Salvar";
+            this.buttonSalvar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.buttonSalvar.UseVisualStyleBackColor = true;
             this.buttonSalvar.Click += new System.EventHandler(this.buttonSalvar_Click);
             // 
@@ -253,38 +288,6 @@
             this.textBoxNome.Name = "textBoxNome";
             this.textBoxNome.Size = new System.Drawing.Size(260, 23);
             this.textBoxNome.TabIndex = 0;
-            // 
-            // textBoxUF
-            // 
-            this.textBoxUF.Location = new System.Drawing.Point(412, 224);
-            this.textBoxUF.Name = "textBoxUF";
-            this.textBoxUF.Size = new System.Drawing.Size(76, 23);
-            this.textBoxUF.TabIndex = 27;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(380, 227);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(26, 17);
-            this.label4.TabIndex = 26;
-            this.label4.Text = "UF";
-            // 
-            // textBoxCidade
-            // 
-            this.textBoxCidade.Location = new System.Drawing.Point(129, 224);
-            this.textBoxCidade.Name = "textBoxCidade";
-            this.textBoxCidade.Size = new System.Drawing.Size(242, 23);
-            this.textBoxCidade.TabIndex = 25;
-            // 
-            // Cidade
-            // 
-            this.Cidade.AutoSize = true;
-            this.Cidade.Location = new System.Drawing.Point(65, 227);
-            this.Cidade.Name = "Cidade";
-            this.Cidade.Size = new System.Drawing.Size(52, 17);
-            this.Cidade.TabIndex = 24;
-            this.Cidade.Text = "Cidade";
             // 
             // CadastrarClienteForm
             // 

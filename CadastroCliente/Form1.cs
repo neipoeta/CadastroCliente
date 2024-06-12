@@ -13,16 +13,15 @@ namespace CadastroCliente
     public partial class Form1 : Form
     {
         private List<Cliente> clientes;
+        private Cliente clienteSelecionado;
 
         public Form1()
         {
             InitializeComponent();
             CarregarClientes();
-
             InicializandoCheckTipoCliente();
+            listBoxClientes.SelectedIndexChanged += listBoxClientes_SelectedIndexChanged;
         }
-
-
 
         private void CarregarClientes()
         {
@@ -32,7 +31,7 @@ namespace CadastroCliente
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string query = "SELECT Nome, Telefone, Endereco, AnoNascimento, Registro FROM Clientes";
+                string query = "SELECT Id, Nome, Telefone, Endereco, AnoNascimento, Registro FROM Clientes";
 
                 SqlCommand command = new SqlCommand(query, connection);
 
@@ -45,6 +44,7 @@ namespace CadastroCliente
                     {
                         Cliente cliente = new Cliente
                         {
+                            Id = (int)reader["Id"],
                             Nome = reader["Nome"].ToString(),
                             Telefone = reader["Telefone"].ToString(),
                             Endereco = new Endereco { Rua = reader["Endereco"].ToString() },
@@ -69,14 +69,14 @@ namespace CadastroCliente
 
         private void listBoxClientes_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var cliente = (Cliente)listBoxClientes.SelectedItem;
-            if (cliente != null)
+            clienteSelecionado = (Cliente)listBoxClientes.SelectedItem;
+            if (clienteSelecionado != null)
             {
-                textBoxNome.Text = cliente.Nome;
-                maskedTextBoxTelefone.Text = cliente.Telefone;
-                textBox1.Text = cliente.Endereco.RetornaEnderecoString();
-                textBox3.Text = cliente.AnoNascimento.ToString();
-                maskedTextBoxRegistro.Text = cliente.Registro;
+                textBoxNome.Text = clienteSelecionado.Nome;
+                maskedTextBoxTelefone.Text = clienteSelecionado.Telefone;
+                textBoxEnderecoCompleto.Text = clienteSelecionado.Endereco.RetornaEnderecoString();
+                textBoxAoNascimento.Text = clienteSelecionado.AnoNascimento.ToString();
+                maskedTextBoxRegistro.Text = clienteSelecionado.Registro;
             }
         }
 
@@ -90,12 +90,12 @@ namespace CadastroCliente
 
         private void RadioButton_RegistroCheck(object sender, EventArgs e)
         {
-            if(radioButtonPessoaFisica.Checked)
+            if (radioButtonPessoaFisica.Checked)
             {
                 maskedTextBoxRegistro.Mask = "000.000.000-00";
                 maskedTextBoxRegistro.Text = string.Empty;
             }
-            else if(radioButtonPessoaJuridica.Checked)
+            else if (radioButtonPessoaJuridica.Checked)
             {
                 maskedTextBoxRegistro.Mask = "00.000.000/0000-00";
             }
@@ -104,43 +104,141 @@ namespace CadastroCliente
         private void salvarToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
             CadastrarClienteForm frm = new CadastrarClienteForm();
-            frm.Show();
+            frm.ShowDialog();
         }
 
-        private void editarToolStripMenuItem_Click(object sender, EventArgs e)
+        private void salvarToolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            //limpar campos box / carregar clientes / clique do cliente carregar no box as infos e visible btn salvar
+            buttonExcluir.Visible = false;
+            buttonSalvar.Visible = false;
+            CadastrarClienteForm frm = new CadastrarClienteForm();
+            frm.ShowDialog();
+            CarregarClientes();
         }
 
-        private void excluirToolStripMenuItem_Click(object sender, EventArgs e)
+        private void editarToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            CarregarClientes();
+            buttonSalvar.Visible = true;
+            buttonExcluir.Visible = false;
+        }
+
+        private void buttonExcluir_Click(object sender, EventArgs e)
+        {
+            if (clienteSelecionado != null)
+            {
+                ExcluirCliente(clienteSelecionado.Id);
+            }
+        }
+
+        private void ExcluirCliente(int id)
+        {
+            string connectionString = "Data Source=dbserver-dev;Initial Catalog=treinamento;User ID=treinamento;Password=treinamento";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string queryEndereco = "DELETE FROM Enderecos WHERE ClienteId = @Id";
+                string queryCliente = "DELETE FROM Clientes WHERE Id = @Id";
+
+                try
+                {
+                    connection.Open();
+
+                    SqlCommand commandEndereco = new SqlCommand(queryEndereco, connection);
+                    commandEndereco.Parameters.AddWithValue("@Id", id);
+                    commandEndereco.ExecuteNonQuery();
+
+                    SqlCommand commandCliente = new SqlCommand(queryCliente, connection);
+                    commandCliente.Parameters.AddWithValue("@Id", id);
+                    commandCliente.ExecuteNonQuery();
+
+                    MessageBox.Show("Cliente excluído com sucesso!");
+                    LimparCampos();
+                    CarregarClientes();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro ao excluir cliente: " + ex.Message);
+                }
+            }
+        }
+
+        private void AtualizarCliente(int id)
+        {
+            string connectionString = "Data Source=dbserver-dev;Initial Catalog=treinamento;User ID=treinamento;Password=treinamento";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string queryCliente = "UPDATE Clientes SET Nome = @Nome, Telefone = @Telefone, Endereco = @Endereco, AnoNascimento = @AnoNascimento, Registro = @Registro WHERE Id = @Id";
+
+                try
+                {
+                    connection.Open();
+
+                    SqlCommand commandCliente = new SqlCommand(queryCliente, connection);
+                    commandCliente.Parameters.AddWithValue("@Nome", textBoxNome.Text);
+                    commandCliente.Parameters.AddWithValue("@Telefone", maskedTextBoxTelefone.Text);
+                    commandCliente.Parameters.AddWithValue("@Endereco", textBoxEnderecoCompleto.Text);
+                    commandCliente.Parameters.AddWithValue("@AnoNascimento", int.Parse(textBoxAoNascimento.Text));
+                    commandCliente.Parameters.AddWithValue("@Registro", maskedTextBoxRegistro.Text);
+                    commandCliente.Parameters.AddWithValue("@Id", id);
+
+                    commandCliente.ExecuteNonQuery();
+
+                    MessageBox.Show("Cliente atualizado com sucesso!");
+                    LimparCampos();
+                    CarregarClientes();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro ao atualizar cliente: " + ex.Message);
+                }
+            }
+        }
+
+        private void LimparCampos()
+        {
+            textBoxNome.Clear();
+            textBoxAoNascimento.Clear();
+            textBoxEnderecoCompleto.Clear();
+            maskedTextBoxTelefone.Clear();
+            maskedTextBoxRegistro.Clear();
+            clienteSelecionado = null;
+            buttonExcluir.Visible = false;
+            buttonSalvar.Visible = false; // Adicione esta linha para esconder o botão de salvar
+        }
+
+        private void excluirToolStripMenuItem1_Click_1(object sender, EventArgs e)
         {
             CarregarClientes();
             buttonExcluir.Visible = true;
+            buttonSalvar.Visible = false;
         }
 
-        private void clientesToolStripMenuItem_Click(object sender, EventArgs e)
+        private void editarToolStripMenuItem1_Click_1(object sender, EventArgs e)
         {
-
-        }
-
-        private void buttonSalvar_Click(object sender, EventArgs e)
-        {
-            CadastrarClienteForm frm = new CadastrarClienteForm();
-            frm.Show();
+            CarregarClientes();
+            buttonExcluir.Visible = false;
+            buttonSalvar.Visible = true;
         }
 
         private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            
-
-        }
-
-        private void cllienteToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void Form1_Load(object sender, EventArgs e)
+        {
+        }
+
+        private void buttonSalvar_Click_1(object sender, EventArgs e)
+        {
+            if (clienteSelecionado != null)
+            {
+                AtualizarCliente(clienteSelecionado.Id);
+            }
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
         {
 
         }
