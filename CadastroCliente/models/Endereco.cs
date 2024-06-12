@@ -17,7 +17,7 @@ namespace CadastroCliente.models
 
         public string RetornaEnderecoString()
         {
-            return $"{Rua}, {Numero}, - {Bairro} - {Cidade} - {Estado}";
+            return $"{Rua}, {Numero}, {Cidade}";
         }
     }
 

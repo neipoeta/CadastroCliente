@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -101,21 +102,6 @@ namespace CadastroCliente
             }
         }
 
-        private void salvarToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            CadastrarClienteForm frm = new CadastrarClienteForm();
-            frm.ShowDialog();
-        }
-
-        private void salvarToolStripMenuItem2_Click(object sender, EventArgs e)
-        {
-            buttonExcluir.Visible = false;
-            buttonSalvar.Visible = false;
-            CadastrarClienteForm frm = new CadastrarClienteForm();
-            frm.ShowDialog();
-            CarregarClientes();
-        }
-
         private void editarToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             CarregarClientes();
@@ -123,11 +109,79 @@ namespace CadastroCliente
             buttonExcluir.Visible = false;
         }
 
-        private void buttonExcluir_Click(object sender, EventArgs e)
+        private void SalvarCliente()
         {
-            if (clienteSelecionado != null)
+            string connectionString = "Data Source=dbserver-dev;Initial Catalog=treinamento;User ID=treinamento;Password=treinamento";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                ExcluirCliente(clienteSelecionado.Id);
+                string enderecoCompleto = $"{textBoxRuaCad.Text}, {textBoxNumeroCad.Text} - {textBoxBairroCad.Text}, {textBoxCidadeCad.Text}, {textBoxUFCad.Text}";
+                string queryCliente = "INSERT INTO Clientes (Nome, AnoNascimento, Telefone, Registro, Endereco) " +
+                                      "OUTPUT INSERTED.Id " +
+                                      "VALUES (@Nome, @AnoNascimento, @Telefone, @Registro, @Endereco)";
+
+                string queryEndereco = "INSERT INTO Enderecos (Rua, Numero, Bairro, Cidade, Estado, ClienteId) " +
+                                       "VALUES (@Rua, @Numero, @Bairro, @Cidade, @Estado, @ClienteId)";
+
+                try
+                {
+                    connection.Open();
+
+                    // Inserindo cliente
+                    SqlCommand commandCliente = new SqlCommand(queryCliente, connection);
+                    commandCliente.Parameters.AddWithValue("@Nome", textBoxNomeCad.Text);
+                    commandCliente.Parameters.AddWithValue("@AnoNascimento", int.Parse(textBoxAnoNascimentoCad.Text));
+                    commandCliente.Parameters.AddWithValue("@Telefone", maskedTextBoxTelefoneCad.Text);
+                    commandCliente.Parameters.AddWithValue("@Registro", maskedTextBoxRegistroCad.Text);
+                    commandCliente.Parameters.AddWithValue("@Endereco", enderecoCompleto);
+
+                    int clienteId = (int)commandCliente.ExecuteScalar();
+
+                    // Inserindo endereço
+                    SqlCommand commandEndereco = new SqlCommand(queryEndereco, connection);
+                    commandEndereco.Parameters.AddWithValue("@Rua", textBoxRuaCad.Text);
+                    commandEndereco.Parameters.AddWithValue("@Numero", int.Parse(textBoxNumeroCad.Text));
+                    commandEndereco.Parameters.AddWithValue("@Bairro", textBoxBairroCad.Text);
+                    commandEndereco.Parameters.AddWithValue("@Cidade", textBoxCidadeCad.Text);
+                    commandEndereco.Parameters.AddWithValue("@Estado", textBoxUFCad.Text);
+                    commandEndereco.Parameters.AddWithValue("@ClienteId", clienteId);
+
+                    commandEndereco.ExecuteNonQuery();
+
+                    MessageBox.Show("Cliente salvo com sucesso!");
+                    LimparCamposCadastro();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erro ao salvar cliente: " + ex.Message);
+                }
+            }
+        }
+
+        private void LimparCamposCadastro()
+        {
+            textBoxNome.Clear();
+            textBoxAnoNascimentoCad.Clear();
+            textBoxRuaCad.Clear();
+            textBoxNumeroCad.Clear();
+            textBoxBairroCad.Clear();
+            textBoxCidadeCad.Clear();
+            textBoxUFCad.Clear();
+            maskedTextBoxTelefoneCad.Clear();
+            maskedTextBoxRegistroCad.Clear();
+        }
+
+        private void radioButtonPessoaFisicaCad_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonPessoaFisica.Checked)
+            {
+                maskedTextBoxRegistro.Mask = "000.000.000-00";
+                maskedTextBoxRegistro.Text = string.Empty;
+            }
+            else if (radioButtonPessoaJuridica.Checked)
+            {
+                maskedTextBoxRegistro.Mask = "00.000.000/0000-00";
+                maskedTextBoxRegistro.Text = string.Empty;
             }
         }
 
@@ -178,7 +232,7 @@ namespace CadastroCliente
                     SqlCommand commandCliente = new SqlCommand(queryCliente, connection);
                     commandCliente.Parameters.AddWithValue("@Nome", textBoxNome.Text);
                     commandCliente.Parameters.AddWithValue("@Telefone", maskedTextBoxTelefone.Text);
-                    commandCliente.Parameters.AddWithValue("@Endereco", textBoxEnderecoCompleto.Text);
+                    commandCliente.Parameters.AddWithValue("@Endereco", textBoxEnderecoCompleto);
                     commandCliente.Parameters.AddWithValue("@AnoNascimento", int.Parse(textBoxAoNascimento.Text));
                     commandCliente.Parameters.AddWithValue("@Registro", maskedTextBoxRegistro.Text);
                     commandCliente.Parameters.AddWithValue("@Id", id);
@@ -208,15 +262,31 @@ namespace CadastroCliente
             buttonSalvar.Visible = false; // Adicione esta linha para esconder o botão de salvar
         }
 
+        private void salvarToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            buttonExcluir.Visible = false;
+            buttonSalvar.Visible = false;
+            groupBox1.Visible = false;
+            groupBox2.Location = new Point(groupBox2.Location.X, 190);
+            groupBox2.Visible = true;
+            radioButtonPessoaFisicaCad.Checked = true;
+
+            CarregarClientes();
+        }
+
         private void excluirToolStripMenuItem1_Click_1(object sender, EventArgs e)
         {
             CarregarClientes();
+            groupBox1.Visible = true;
+            groupBox2.Visible = false;
             buttonExcluir.Visible = true;
             buttonSalvar.Visible = false;
         }
 
         private void editarToolStripMenuItem1_Click_1(object sender, EventArgs e)
         {
+            groupBox1.Visible = true;
+            groupBox2.Visible = false;
             CarregarClientes();
             buttonExcluir.Visible = false;
             buttonSalvar.Visible = true;
@@ -230,6 +300,14 @@ namespace CadastroCliente
         {
         }
 
+        private void buttonExcluir_Click(object sender, EventArgs e)
+        {
+            if (clienteSelecionado != null)
+            {
+                ExcluirCliente(clienteSelecionado.Id);
+            }
+        }
+
         private void buttonSalvar_Click_1(object sender, EventArgs e)
         {
             if (clienteSelecionado != null)
@@ -238,7 +316,12 @@ namespace CadastroCliente
             }
         }
 
-        private void groupBox1_Enter(object sender, EventArgs e)
+        private void buttonSalvarCad_Click(object sender, EventArgs e)
+        {
+            SalvarCliente();
+        }
+
+        private void clientesToolStripMenuItem1_Click(object sender, EventArgs e)
         {
 
         }
