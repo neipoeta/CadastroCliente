@@ -60,7 +60,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.maskedTextBoxTelefoneCad = new System.Windows.Forms.MaskedTextBox();
             this.maskedTextBoxRegistroCad = new System.Windows.Forms.MaskedTextBox();
-            this.buttonSalvarCad = new System.Windows.Forms.Button();
             this.radioButtonPessoaJuridicaCad = new System.Windows.Forms.RadioButton();
             this.radioButtonPessoaFisicaCad = new System.Windows.Forms.RadioButton();
             this.textBoxAnoNascimentoCad = new System.Windows.Forms.TextBox();
@@ -72,9 +71,10 @@
             this.nomeCad = new System.Windows.Forms.Label();
             this.textBoxNomeCad = new System.Windows.Forms.TextBox();
             this.listBoxClientes = new System.Windows.Forms.ListBox();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabPageEnderecos = new System.Windows.Forms.TabPage();
             this.listBoxEnderecos = new System.Windows.Forms.ListBox();
             this.groupBoxEnderecos = new System.Windows.Forms.GroupBox();
+            this.buttonSalvarEndereco = new System.Windows.Forms.Button();
             this.buttonEnderecoExcluir = new System.Windows.Forms.Button();
             this.buttonEnderecoEditar = new System.Windows.Forms.Button();
             this.buttonEnderecoNovo = new System.Windows.Forms.Button();
@@ -89,12 +89,11 @@
             this.label10 = new System.Windows.Forms.Label();
             this.textBoxEnderecoRua = new System.Windows.Forms.TextBox();
             this.appStylistRuntime1 = new Infragistics.Win.AppStyling.Runtime.AppStylistRuntime(this.components);
-            this.buttonSalvarEndereco = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.tabPage2.SuspendLayout();
+            this.tabPageEnderecos.SuspendLayout();
             this.groupBoxEnderecos.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -201,8 +200,11 @@
             // 
             // tabControl1
             // 
+            this.tabControl1.Appearance = System.Windows.Forms.TabAppearance.Buttons;
             this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPageEnderecos);
+            this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabControl1.ItemSize = new System.Drawing.Size(50, 30);
             this.tabControl1.Location = new System.Drawing.Point(0, 28);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -217,11 +219,11 @@
             this.tabPage1.Controls.Add(this.groupBox2);
             this.tabPage1.Controls.Add(this.listBoxClientes);
             this.tabPage1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Location = new System.Drawing.Point(4, 34);
             this.tabPage1.Margin = new System.Windows.Forms.Padding(0);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(957, 540);
+            this.tabPage1.Size = new System.Drawing.Size(957, 528);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Cliente";
             // 
@@ -240,7 +242,6 @@
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.maskedTextBoxTelefoneCad);
             this.groupBox2.Controls.Add(this.maskedTextBoxRegistroCad);
-            this.groupBox2.Controls.Add(this.buttonSalvarCad);
             this.groupBox2.Controls.Add(this.radioButtonPessoaJuridicaCad);
             this.groupBox2.Controls.Add(this.radioButtonPessoaFisicaCad);
             this.groupBox2.Controls.Add(this.textBoxAnoNascimentoCad);
@@ -253,24 +254,25 @@
             this.groupBox2.Controls.Add(this.textBoxNomeCad);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.groupBox2.Location = new System.Drawing.Point(29, 171);
+            this.groupBox2.Location = new System.Drawing.Point(29, 156);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(913, 318);
+            this.groupBox2.Size = new System.Drawing.Size(896, 306);
             this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Dados do Cliente";
             // 
             // textBoxUFCad
             // 
-            this.textBoxUFCad.Location = new System.Drawing.Point(412, 224);
+            this.textBoxUFCad.Location = new System.Drawing.Point(379, 202);
             this.textBoxUFCad.Name = "textBoxUFCad";
+            this.textBoxUFCad.ReadOnly = true;
             this.textBoxUFCad.Size = new System.Drawing.Size(76, 23);
-            this.textBoxUFCad.TabIndex = 27;
+            this.textBoxUFCad.TabIndex = 6;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(380, 227);
+            this.label4.Location = new System.Drawing.Point(347, 205);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(26, 17);
             this.label4.TabIndex = 26;
@@ -278,9 +280,11 @@
             // 
             // buttonSalvar
             // 
-            this.buttonSalvar.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.buttonSalvar.BackColor = System.Drawing.SystemColors.Info;
+            this.buttonSalvar.FlatAppearance.BorderSize = 0;
+            this.buttonSalvar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonSalvar.Image = ((System.Drawing.Image)(resources.GetObject("buttonSalvar.Image")));
-            this.buttonSalvar.Location = new System.Drawing.Point(714, 232);
+            this.buttonSalvar.Location = new System.Drawing.Point(790, 217);
             this.buttonSalvar.Name = "buttonSalvar";
             this.buttonSalvar.Size = new System.Drawing.Size(82, 62);
             this.buttonSalvar.TabIndex = 19;
@@ -289,12 +293,15 @@
             this.buttonSalvar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.buttonSalvar.UseVisualStyleBackColor = false;
             this.buttonSalvar.Visible = false;
+            this.buttonSalvar.Click += new System.EventHandler(this.buttonSalvar_Click);
             // 
             // buttonExcluir
             // 
+            this.buttonExcluir.FlatAppearance.BorderSize = 0;
+            this.buttonExcluir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonExcluir.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.buttonExcluir.Image = ((System.Drawing.Image)(resources.GetObject("buttonExcluir.Image")));
-            this.buttonExcluir.Location = new System.Drawing.Point(714, 232);
+            this.buttonExcluir.Location = new System.Drawing.Point(790, 217);
             this.buttonExcluir.Name = "buttonExcluir";
             this.buttonExcluir.Size = new System.Drawing.Size(82, 62);
             this.buttonExcluir.TabIndex = 14;
@@ -302,18 +309,20 @@
             this.buttonExcluir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.buttonExcluir.UseVisualStyleBackColor = true;
             this.buttonExcluir.Visible = false;
+            this.buttonExcluir.Click += new System.EventHandler(this.buttonExcluir_Click_1);
             // 
             // textBoxCidadeCad
             // 
-            this.textBoxCidadeCad.Location = new System.Drawing.Point(129, 224);
+            this.textBoxCidadeCad.Location = new System.Drawing.Point(96, 202);
             this.textBoxCidadeCad.Name = "textBoxCidadeCad";
+            this.textBoxCidadeCad.ReadOnly = true;
             this.textBoxCidadeCad.Size = new System.Drawing.Size(242, 23);
-            this.textBoxCidadeCad.TabIndex = 25;
+            this.textBoxCidadeCad.TabIndex = 5;
             // 
             // Cidade
             // 
             this.Cidade.AutoSize = true;
-            this.Cidade.Location = new System.Drawing.Point(65, 227);
+            this.Cidade.Location = new System.Drawing.Point(32, 205);
             this.Cidade.Name = "Cidade";
             this.Cidade.Size = new System.Drawing.Size(52, 17);
             this.Cidade.TabIndex = 24;
@@ -321,15 +330,16 @@
             // 
             // textBoxBairroCad
             // 
-            this.textBoxBairroCad.Location = new System.Drawing.Point(303, 178);
+            this.textBoxBairroCad.Location = new System.Drawing.Point(270, 156);
             this.textBoxBairroCad.Name = "textBoxBairroCad";
+            this.textBoxBairroCad.ReadOnly = true;
             this.textBoxBairroCad.Size = new System.Drawing.Size(185, 23);
-            this.textBoxBairroCad.TabIndex = 23;
+            this.textBoxBairroCad.TabIndex = 4;
             // 
             // Bairro
             // 
             this.Bairro.AutoSize = true;
-            this.Bairro.Location = new System.Drawing.Point(251, 181);
+            this.Bairro.Location = new System.Drawing.Point(218, 159);
             this.Bairro.Name = "Bairro";
             this.Bairro.Size = new System.Drawing.Size(46, 17);
             this.Bairro.TabIndex = 22;
@@ -337,15 +347,16 @@
             // 
             // textBoxNumeroCad
             // 
-            this.textBoxNumeroCad.Location = new System.Drawing.Point(129, 178);
+            this.textBoxNumeroCad.Location = new System.Drawing.Point(96, 156);
             this.textBoxNumeroCad.Name = "textBoxNumeroCad";
+            this.textBoxNumeroCad.ReadOnly = true;
             this.textBoxNumeroCad.Size = new System.Drawing.Size(84, 23);
-            this.textBoxNumeroCad.TabIndex = 21;
+            this.textBoxNumeroCad.TabIndex = 3;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(65, 181);
+            this.label2.Location = new System.Drawing.Point(32, 159);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(58, 17);
             this.label2.TabIndex = 20;
@@ -354,7 +365,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(89, 139);
+            this.label1.Location = new System.Drawing.Point(56, 117);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(34, 17);
             this.label1.TabIndex = 19;
@@ -362,37 +373,24 @@
             // 
             // maskedTextBoxTelefoneCad
             // 
-            this.maskedTextBoxTelefoneCad.Location = new System.Drawing.Point(111, 274);
+            this.maskedTextBoxTelefoneCad.Location = new System.Drawing.Point(96, 253);
             this.maskedTextBoxTelefoneCad.Mask = "(00) 00000-0000";
             this.maskedTextBoxTelefoneCad.Name = "maskedTextBoxTelefoneCad";
             this.maskedTextBoxTelefoneCad.Size = new System.Drawing.Size(195, 23);
-            this.maskedTextBoxTelefoneCad.TabIndex = 18;
+            this.maskedTextBoxTelefoneCad.TabIndex = 7;
             // 
             // maskedTextBoxRegistroCad
             // 
-            this.maskedTextBoxRegistroCad.Location = new System.Drawing.Point(421, 274);
+            this.maskedTextBoxRegistroCad.Location = new System.Drawing.Point(406, 253);
             this.maskedTextBoxRegistroCad.Name = "maskedTextBoxRegistroCad";
             this.maskedTextBoxRegistroCad.Size = new System.Drawing.Size(156, 23);
-            this.maskedTextBoxRegistroCad.TabIndex = 15;
-            // 
-            // buttonSalvarCad
-            // 
-            this.buttonSalvarCad.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.buttonSalvarCad.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.buttonSalvarCad.Image = ((System.Drawing.Image)(resources.GetObject("buttonSalvarCad.Image")));
-            this.buttonSalvarCad.Location = new System.Drawing.Point(714, 232);
-            this.buttonSalvarCad.Name = "buttonSalvarCad";
-            this.buttonSalvarCad.Size = new System.Drawing.Size(82, 62);
-            this.buttonSalvarCad.TabIndex = 13;
-            this.buttonSalvarCad.Text = "Salvar";
-            this.buttonSalvarCad.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.buttonSalvarCad.UseVisualStyleBackColor = false;
+            this.maskedTextBoxRegistroCad.TabIndex = 8;
             // 
             // radioButtonPessoaJuridicaCad
             // 
             this.radioButtonPessoaJuridicaCad.AutoSize = true;
             this.radioButtonPessoaJuridicaCad.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.radioButtonPessoaJuridicaCad.Location = new System.Drawing.Point(728, 103);
+            this.radioButtonPessoaJuridicaCad.Location = new System.Drawing.Point(713, 96);
             this.radioButtonPessoaJuridicaCad.Name = "radioButtonPessoaJuridicaCad";
             this.radioButtonPessoaJuridicaCad.Size = new System.Drawing.Size(126, 21);
             this.radioButtonPessoaJuridicaCad.TabIndex = 12;
@@ -403,7 +401,7 @@
             // 
             this.radioButtonPessoaFisicaCad.AutoSize = true;
             this.radioButtonPessoaFisicaCad.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.radioButtonPessoaFisicaCad.Location = new System.Drawing.Point(728, 57);
+            this.radioButtonPessoaFisicaCad.Location = new System.Drawing.Point(713, 50);
             this.radioButtonPessoaFisicaCad.Name = "radioButtonPessoaFisicaCad";
             this.radioButtonPessoaFisicaCad.Size = new System.Drawing.Size(113, 21);
             this.radioButtonPessoaFisicaCad.TabIndex = 11;
@@ -413,23 +411,24 @@
             // 
             // textBoxAnoNascimentoCad
             // 
-            this.textBoxAnoNascimentoCad.Location = new System.Drawing.Point(457, 44);
+            this.textBoxAnoNascimentoCad.Location = new System.Drawing.Point(442, 37);
             this.textBoxAnoNascimentoCad.Name = "textBoxAnoNascimentoCad";
             this.textBoxAnoNascimentoCad.Size = new System.Drawing.Size(120, 23);
-            this.textBoxAnoNascimentoCad.TabIndex = 9;
+            this.textBoxAnoNascimentoCad.TabIndex = 1;
             // 
             // textBoxRuaCad
             // 
-            this.textBoxRuaCad.Location = new System.Drawing.Point(129, 139);
+            this.textBoxRuaCad.Location = new System.Drawing.Point(96, 117);
             this.textBoxRuaCad.Name = "textBoxRuaCad";
+            this.textBoxRuaCad.ReadOnly = true;
             this.textBoxRuaCad.Size = new System.Drawing.Size(359, 23);
-            this.textBoxRuaCad.TabIndex = 7;
+            this.textBoxRuaCad.TabIndex = 2;
             // 
             // registroCad
             // 
             this.registroCad.AutoSize = true;
             this.registroCad.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.registroCad.Location = new System.Drawing.Point(353, 274);
+            this.registroCad.Location = new System.Drawing.Point(338, 253);
             this.registroCad.Name = "registroCad";
             this.registroCad.Size = new System.Drawing.Size(61, 17);
             this.registroCad.TabIndex = 5;
@@ -440,7 +439,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label5.Location = new System.Drawing.Point(418, 47);
+            this.label5.Location = new System.Drawing.Point(403, 40);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(33, 17);
             this.label5.TabIndex = 4;
@@ -451,7 +450,7 @@
             // 
             this.telefoneCad.AutoSize = true;
             this.telefoneCad.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.telefoneCad.Location = new System.Drawing.Point(41, 277);
+            this.telefoneCad.Location = new System.Drawing.Point(26, 256);
             this.telefoneCad.Name = "telefoneCad";
             this.telefoneCad.Size = new System.Drawing.Size(64, 17);
             this.telefoneCad.TabIndex = 3;
@@ -462,18 +461,19 @@
             // 
             this.label7.AutoSize = true;
             this.label7.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label7.Location = new System.Drawing.Point(60, 107);
+            this.label7.Location = new System.Drawing.Point(27, 85);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(69, 17);
             this.label7.TabIndex = 2;
             this.label7.Text = "Endereço";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label7.Click += new System.EventHandler(this.label7_Click);
             // 
             // nomeCad
             // 
             this.nomeCad.AutoSize = true;
             this.nomeCad.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.nomeCad.Location = new System.Drawing.Point(60, 47);
+            this.nomeCad.Location = new System.Drawing.Point(45, 40);
             this.nomeCad.Name = "nomeCad";
             this.nomeCad.Size = new System.Drawing.Size(45, 17);
             this.nomeCad.TabIndex = 1;
@@ -482,7 +482,7 @@
             // 
             // textBoxNomeCad
             // 
-            this.textBoxNomeCad.Location = new System.Drawing.Point(111, 44);
+            this.textBoxNomeCad.Location = new System.Drawing.Point(96, 37);
             this.textBoxNomeCad.Name = "textBoxNomeCad";
             this.textBoxNomeCad.Size = new System.Drawing.Size(260, 23);
             this.textBoxNomeCad.TabIndex = 0;
@@ -490,29 +490,31 @@
             // listBoxClientes
             // 
             this.listBoxClientes.FormattingEnabled = true;
+            this.listBoxClientes.ItemHeight = 16;
             this.listBoxClientes.Location = new System.Drawing.Point(29, 20);
             this.listBoxClientes.Name = "listBoxClientes";
-            this.listBoxClientes.Size = new System.Drawing.Size(913, 121);
+            this.listBoxClientes.Size = new System.Drawing.Size(896, 116);
             this.listBoxClientes.TabIndex = 6;
             // 
-            // tabPage2
+            // tabPageEnderecos
             // 
-            this.tabPage2.BackColor = System.Drawing.SystemColors.Info;
-            this.tabPage2.Controls.Add(this.listBoxEnderecos);
-            this.tabPage2.Controls.Add(this.groupBoxEnderecos);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(957, 540);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Endereços";
+            this.tabPageEnderecos.BackColor = System.Drawing.SystemColors.Info;
+            this.tabPageEnderecos.Controls.Add(this.listBoxEnderecos);
+            this.tabPageEnderecos.Controls.Add(this.groupBoxEnderecos);
+            this.tabPageEnderecos.Location = new System.Drawing.Point(4, 34);
+            this.tabPageEnderecos.Name = "tabPageEnderecos";
+            this.tabPageEnderecos.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageEnderecos.Size = new System.Drawing.Size(957, 528);
+            this.tabPageEnderecos.TabIndex = 1;
+            this.tabPageEnderecos.Text = "Endereços";
             // 
             // listBoxEnderecos
             // 
             this.listBoxEnderecos.FormattingEnabled = true;
+            this.listBoxEnderecos.ItemHeight = 16;
             this.listBoxEnderecos.Location = new System.Drawing.Point(21, 18);
             this.listBoxEnderecos.Name = "listBoxEnderecos";
-            this.listBoxEnderecos.Size = new System.Drawing.Size(913, 121);
+            this.listBoxEnderecos.Size = new System.Drawing.Size(913, 116);
             this.listBoxEnderecos.TabIndex = 7;
             // 
             // groupBoxEnderecos
@@ -536,28 +538,46 @@
             this.groupBoxEnderecos.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.groupBoxEnderecos.Location = new System.Drawing.Point(21, 157);
             this.groupBoxEnderecos.Name = "groupBoxEnderecos";
-            this.groupBoxEnderecos.Size = new System.Drawing.Size(913, 272);
+            this.groupBoxEnderecos.Size = new System.Drawing.Size(913, 285);
             this.groupBoxEnderecos.TabIndex = 4;
             this.groupBoxEnderecos.TabStop = false;
             this.groupBoxEnderecos.Text = "Endereços";
+            // 
+            // buttonSalvarEndereco
+            // 
+            this.buttonSalvarEndereco.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.buttonSalvarEndereco.FlatAppearance.BorderSize = 0;
+            this.buttonSalvarEndereco.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonSalvarEndereco.Image = ((System.Drawing.Image)(resources.GetObject("buttonSalvarEndereco.Image")));
+            this.buttonSalvarEndereco.Location = new System.Drawing.Point(793, 221);
+            this.buttonSalvarEndereco.Name = "buttonSalvarEndereco";
+            this.buttonSalvarEndereco.Size = new System.Drawing.Size(60, 46);
+            this.buttonSalvarEndereco.TabIndex = 43;
+            this.buttonSalvarEndereco.UseVisualStyleBackColor = true;
+            this.buttonSalvarEndereco.Click += new System.EventHandler(this.buttonSalvarEndereco_Click_1);
             // 
             // buttonEnderecoExcluir
             // 
             this.buttonEnderecoExcluir.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonEnderecoExcluir.BackgroundImage")));
             this.buttonEnderecoExcluir.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.buttonEnderecoExcluir.Location = new System.Drawing.Point(198, 191);
+            this.buttonEnderecoExcluir.FlatAppearance.BorderSize = 0;
+            this.buttonEnderecoExcluir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonEnderecoExcluir.Image = ((System.Drawing.Image)(resources.GetObject("buttonEnderecoExcluir.Image")));
+            this.buttonEnderecoExcluir.Location = new System.Drawing.Point(163, 33);
             this.buttonEnderecoExcluir.Name = "buttonEnderecoExcluir";
-            this.buttonEnderecoExcluir.Size = new System.Drawing.Size(56, 46);
+            this.buttonEnderecoExcluir.Size = new System.Drawing.Size(35, 34);
             this.buttonEnderecoExcluir.TabIndex = 41;
             this.buttonEnderecoExcluir.UseVisualStyleBackColor = true;
             this.buttonEnderecoExcluir.Click += new System.EventHandler(this.buttonEnderecoExcluir_Click);
             // 
             // buttonEnderecoEditar
             // 
+            this.buttonEnderecoEditar.FlatAppearance.BorderSize = 0;
+            this.buttonEnderecoEditar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonEnderecoEditar.Image = ((System.Drawing.Image)(resources.GetObject("buttonEnderecoEditar.Image")));
-            this.buttonEnderecoEditar.Location = new System.Drawing.Point(113, 191);
+            this.buttonEnderecoEditar.Location = new System.Drawing.Point(103, 33);
             this.buttonEnderecoEditar.Name = "buttonEnderecoEditar";
-            this.buttonEnderecoEditar.Size = new System.Drawing.Size(68, 46);
+            this.buttonEnderecoEditar.Size = new System.Drawing.Size(54, 34);
             this.buttonEnderecoEditar.TabIndex = 40;
             this.buttonEnderecoEditar.UseVisualStyleBackColor = true;
             this.buttonEnderecoEditar.Click += new System.EventHandler(this.buttonEnderecoEditar_Click);
@@ -565,17 +585,19 @@
             // buttonEnderecoNovo
             // 
             this.buttonEnderecoNovo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.buttonEnderecoNovo.FlatAppearance.BorderSize = 0;
+            this.buttonEnderecoNovo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonEnderecoNovo.Image = ((System.Drawing.Image)(resources.GetObject("buttonEnderecoNovo.Image")));
-            this.buttonEnderecoNovo.Location = new System.Drawing.Point(33, 191);
+            this.buttonEnderecoNovo.Location = new System.Drawing.Point(51, 33);
             this.buttonEnderecoNovo.Name = "buttonEnderecoNovo";
-            this.buttonEnderecoNovo.Size = new System.Drawing.Size(60, 46);
+            this.buttonEnderecoNovo.Size = new System.Drawing.Size(46, 34);
             this.buttonEnderecoNovo.TabIndex = 39;
             this.buttonEnderecoNovo.UseVisualStyleBackColor = true;
             this.buttonEnderecoNovo.Click += new System.EventHandler(this.buttonEnderecoNovo_Click);
             // 
             // textBoxEnderecoUF
             // 
-            this.textBoxEnderecoUF.Location = new System.Drawing.Point(99, 118);
+            this.textBoxEnderecoUF.Location = new System.Drawing.Point(106, 192);
             this.textBoxEnderecoUF.Name = "textBoxEnderecoUF";
             this.textBoxEnderecoUF.Size = new System.Drawing.Size(76, 23);
             this.textBoxEnderecoUF.TabIndex = 38;
@@ -583,7 +605,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(67, 121);
+            this.label3.Location = new System.Drawing.Point(74, 195);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(26, 17);
             this.label3.TabIndex = 37;
@@ -591,7 +613,7 @@
             // 
             // textBoxEnderecoCidade
             // 
-            this.textBoxEnderecoCidade.Location = new System.Drawing.Point(99, 77);
+            this.textBoxEnderecoCidade.Location = new System.Drawing.Point(106, 151);
             this.textBoxEnderecoCidade.Name = "textBoxEnderecoCidade";
             this.textBoxEnderecoCidade.Size = new System.Drawing.Size(374, 23);
             this.textBoxEnderecoCidade.TabIndex = 36;
@@ -599,7 +621,7 @@
             // EnderecoCidade
             // 
             this.EnderecoCidade.AutoSize = true;
-            this.EnderecoCidade.Location = new System.Drawing.Point(41, 80);
+            this.EnderecoCidade.Location = new System.Drawing.Point(48, 154);
             this.EnderecoCidade.Name = "EnderecoCidade";
             this.EnderecoCidade.Size = new System.Drawing.Size(52, 17);
             this.EnderecoCidade.TabIndex = 35;
@@ -607,7 +629,7 @@
             // 
             // textBoxEnderecoBairro
             // 
-            this.textBoxEnderecoBairro.Location = new System.Drawing.Point(555, 74);
+            this.textBoxEnderecoBairro.Location = new System.Drawing.Point(562, 148);
             this.textBoxEnderecoBairro.Name = "textBoxEnderecoBairro";
             this.textBoxEnderecoBairro.Size = new System.Drawing.Size(276, 23);
             this.textBoxEnderecoBairro.TabIndex = 34;
@@ -615,7 +637,7 @@
             // EnderecoBairro
             // 
             this.EnderecoBairro.AutoSize = true;
-            this.EnderecoBairro.Location = new System.Drawing.Point(503, 77);
+            this.EnderecoBairro.Location = new System.Drawing.Point(510, 151);
             this.EnderecoBairro.Name = "EnderecoBairro";
             this.EnderecoBairro.Size = new System.Drawing.Size(46, 17);
             this.EnderecoBairro.TabIndex = 33;
@@ -623,7 +645,7 @@
             // 
             // textBoxEnderecoNumero
             // 
-            this.textBoxEnderecoNumero.Location = new System.Drawing.Point(694, 32);
+            this.textBoxEnderecoNumero.Location = new System.Drawing.Point(701, 106);
             this.textBoxEnderecoNumero.Name = "textBoxEnderecoNumero";
             this.textBoxEnderecoNumero.Size = new System.Drawing.Size(137, 23);
             this.textBoxEnderecoNumero.TabIndex = 32;
@@ -631,7 +653,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(637, 35);
+            this.label9.Location = new System.Drawing.Point(644, 109);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(58, 17);
             this.label9.TabIndex = 31;
@@ -640,7 +662,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(59, 32);
+            this.label10.Location = new System.Drawing.Point(66, 106);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(34, 17);
             this.label10.TabIndex = 30;
@@ -648,27 +670,17 @@
             // 
             // textBoxEnderecoRua
             // 
-            this.textBoxEnderecoRua.Location = new System.Drawing.Point(99, 32);
+            this.textBoxEnderecoRua.Location = new System.Drawing.Point(106, 106);
             this.textBoxEnderecoRua.Name = "textBoxEnderecoRua";
             this.textBoxEnderecoRua.Size = new System.Drawing.Size(503, 23);
             this.textBoxEnderecoRua.TabIndex = 29;
-            // 
-            // buttonSalvarEndereco
-            // 
-            this.buttonSalvarEndereco.Location = new System.Drawing.Point(555, 206);
-            this.buttonSalvarEndereco.Name = "buttonSalvarEndereco";
-            this.buttonSalvarEndereco.Size = new System.Drawing.Size(75, 23);
-            this.buttonSalvarEndereco.TabIndex = 42;
-            this.buttonSalvarEndereco.Text = "button1";
-            this.buttonSalvarEndereco.UseVisualStyleBackColor = true;
-            this.buttonSalvarEndereco.Click += new System.EventHandler(this.buttonSalvarEndereco_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Info;
-            this.ClientSize = new System.Drawing.Size(965, 534);
+            this.ClientSize = new System.Drawing.Size(965, 544);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -682,7 +694,7 @@
             this.tabPage1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            this.tabPage2.ResumeLayout(false);
+            this.tabPageEnderecos.ResumeLayout(false);
             this.groupBoxEnderecos.ResumeLayout(false);
             this.groupBoxEnderecos.PerformLayout();
             this.ResumeLayout(false);
@@ -721,7 +733,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.MaskedTextBox maskedTextBoxTelefoneCad;
         private System.Windows.Forms.MaskedTextBox maskedTextBoxRegistroCad;
-        private System.Windows.Forms.Button buttonSalvarCad;
         private System.Windows.Forms.RadioButton radioButtonPessoaJuridicaCad;
         private System.Windows.Forms.RadioButton radioButtonPessoaFisicaCad;
         private System.Windows.Forms.TextBox textBoxAnoNascimentoCad;
@@ -733,7 +744,7 @@
         private System.Windows.Forms.Label nomeCad;
         private System.Windows.Forms.TextBox textBoxNomeCad;
         private System.Windows.Forms.ListBox listBoxClientes;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage tabPageEnderecos;
         private System.Windows.Forms.GroupBox groupBoxEnderecos;
         private System.Windows.Forms.ListBox listBoxEnderecos;
         private System.Windows.Forms.TextBox textBoxEnderecoUF;
