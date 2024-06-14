@@ -14,6 +14,7 @@ namespace CadastroCliente.models
         public string Bairro { get; set; }
         public string Cidade { get; set; }
         public string Estado { get; set; }
+        public int ClienteId { get; set; }
 
         public string RetornaEnderecoString()
         {
