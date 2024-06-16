@@ -74,6 +74,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataSetCliente.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSetCliente.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSetClienteEndereco.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSetClienteEndereco.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -97,6 +107,28 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="DataSetCliente.xsc">
+      <DependentUpon>DataSetCliente.xsd</DependentUpon>
+    </None>
+    <None Include="DataSetCliente.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetCliente.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DataSetCliente.xss">
+      <DependentUpon>DataSetCliente.xsd</DependentUpon>
+    </None>
+    <None Include="DataSetClienteEndereco.xsc">
+      <DependentUpon>DataSetClienteEndereco.xsd</DependentUpon>
+    </None>
+    <None Include="DataSetClienteEndereco.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetClienteEndereco.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DataSetClienteEndereco.xss">
+      <DependentUpon>DataSetClienteEndereco.xsd</DependentUpon>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -12,13 +12,7 @@ namespace CadastroCliente.models
         public string Nome { get; set; }
         public string Registro { get; set; }
         public string Telefone { get; set; }
-        public int AnoNascimento { get; set; }
-        public Endereco Endereco { get; set; }
-
-        public string RetornaEnderecoString()
-        {
-            return Endereco.RetornaEnderecoString();
-        }
+        public int AnoFundacao { get; set; }
 
     }
 }
