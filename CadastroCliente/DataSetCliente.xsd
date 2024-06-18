@@ -141,7 +141,16 @@ SELECT id_endereco, rua, numero, bairro, cidade, uf, cliente_id FROM enderecos W
               <Mapping SourceColumn="uf" DataSetColumn="uf" />
               <Mapping SourceColumn="cliente_id" DataSetColumn="cliente_id" />
             </Mappings>
-            <Sources />
+            <Sources>
+              <DbSource ConnectionRef="ConnectionString (Settings)" DbObjectName="TREINAMENTO.dbo.enderecos" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="FillBy" GenerateMethods="Fill" GenerateShortCommands="true" GeneratorSourceName="FillBy" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="FillBy">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT id_endereco, rua, numero, bairro, cidade, uf, cliente_id FROM dbo.enderecos where cliente_id = 0</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </Sources>
           </TableAdapter>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="vw_clientes_enderecosTableAdapter" GeneratorDataComponentClassName="vw_clientes_enderecosTableAdapter" Name="vw_clientes_enderecos" UserDataComponentName="vw_clientes_enderecosTableAdapter">
             <MainSource>
@@ -212,7 +221,7 @@ SELECT id_endereco, rua, numero, bairro, cidade, uf, cliente_id FROM enderecos W
   <xs:element name="DataSetCliente" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="DataSetCliente" msprop:Generator_UserDSName="DataSetCliente">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="clientes" msprop:Generator_TableClassName="clientesDataTable" msprop:Generator_TableVarName="tableclientes" msprop:Generator_TablePropName="clientes" msprop:Generator_RowDeletingName="clientesRowDeleting" msprop:Generator_RowChangingName="clientesRowChanging" msprop:Generator_RowEvHandlerName="clientesRowChangeEventHandler" msprop:Generator_RowDeletedName="clientesRowDeleted" msprop:Generator_UserTableName="clientes" msprop:Generator_RowChangedName="clientesRowChanged" msprop:Generator_RowEvArgName="clientesRowChangeEvent" msprop:Generator_RowClassName="clientesRow">
+        <xs:element name="clientes" msprop:Generator_TableClassName="clientesDataTable" msprop:Generator_TableVarName="tableclientes" msprop:Generator_RowChangedName="clientesRowChanged" msprop:Generator_TablePropName="clientes" msprop:Generator_RowDeletingName="clientesRowDeleting" msprop:Generator_RowChangingName="clientesRowChanging" msprop:Generator_RowEvHandlerName="clientesRowChangeEventHandler" msprop:Generator_RowDeletedName="clientesRowDeleted" msprop:Generator_RowClassName="clientesRow" msprop:Generator_UserTableName="clientes" msprop:Generator_RowEvArgName="clientesRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="id_cliente" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnid_cliente" msprop:Generator_ColumnPropNameInRow="id_cliente" msprop:Generator_ColumnPropNameInTable="id_clienteColumn" msprop:Generator_UserColumnName="id_cliente" type="xs:int" />
@@ -241,7 +250,7 @@ SELECT id_endereco, rua, numero, bairro, cidade, uf, cliente_id FROM enderecos W
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="enderecos" msprop:Generator_TableClassName="enderecosDataTable" msprop:Generator_TableVarName="tableenderecos" msprop:Generator_TablePropName="enderecos" msprop:Generator_RowDeletingName="enderecosRowDeleting" msprop:Generator_RowChangingName="enderecosRowChanging" msprop:Generator_RowEvHandlerName="enderecosRowChangeEventHandler" msprop:Generator_RowDeletedName="enderecosRowDeleted" msprop:Generator_UserTableName="enderecos" msprop:Generator_RowChangedName="enderecosRowChanged" msprop:Generator_RowEvArgName="enderecosRowChangeEvent" msprop:Generator_RowClassName="enderecosRow">
+        <xs:element name="enderecos" msprop:Generator_TableClassName="enderecosDataTable" msprop:Generator_TableVarName="tableenderecos" msprop:Generator_RowChangedName="enderecosRowChanged" msprop:Generator_TablePropName="enderecos" msprop:Generator_RowDeletingName="enderecosRowDeleting" msprop:Generator_RowChangingName="enderecosRowChanging" msprop:Generator_RowEvHandlerName="enderecosRowChangeEventHandler" msprop:Generator_RowDeletedName="enderecosRowDeleted" msprop:Generator_RowClassName="enderecosRow" msprop:Generator_UserTableName="enderecos" msprop:Generator_RowEvArgName="enderecosRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="id_endereco" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnid_endereco" msprop:Generator_ColumnPropNameInRow="id_endereco" msprop:Generator_ColumnPropNameInTable="id_enderecoColumn" msprop:Generator_UserColumnName="id_endereco" type="xs:int" />
@@ -278,7 +287,7 @@ SELECT id_endereco, rua, numero, bairro, cidade, uf, cliente_id FROM enderecos W
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="vw_clientes_enderecos" msprop:Generator_TableClassName="vw_clientes_enderecosDataTable" msprop:Generator_TableVarName="tablevw_clientes_enderecos" msprop:Generator_TablePropName="vw_clientes_enderecos" msprop:Generator_RowDeletingName="vw_clientes_enderecosRowDeleting" msprop:Generator_RowChangingName="vw_clientes_enderecosRowChanging" msprop:Generator_RowEvHandlerName="vw_clientes_enderecosRowChangeEventHandler" msprop:Generator_RowDeletedName="vw_clientes_enderecosRowDeleted" msprop:Generator_UserTableName="vw_clientes_enderecos" msprop:Generator_RowChangedName="vw_clientes_enderecosRowChanged" msprop:Generator_RowEvArgName="vw_clientes_enderecosRowChangeEvent" msprop:Generator_RowClassName="vw_clientes_enderecosRow">
+        <xs:element name="vw_clientes_enderecos" msprop:Generator_TableClassName="vw_clientes_enderecosDataTable" msprop:Generator_TableVarName="tablevw_clientes_enderecos" msprop:Generator_RowChangedName="vw_clientes_enderecosRowChanged" msprop:Generator_TablePropName="vw_clientes_enderecos" msprop:Generator_RowDeletingName="vw_clientes_enderecosRowDeleting" msprop:Generator_RowChangingName="vw_clientes_enderecosRowChanging" msprop:Generator_RowEvHandlerName="vw_clientes_enderecosRowChangeEventHandler" msprop:Generator_RowDeletedName="vw_clientes_enderecosRowDeleted" msprop:Generator_RowClassName="vw_clientes_enderecosRow" msprop:Generator_UserTableName="vw_clientes_enderecos" msprop:Generator_RowEvArgName="vw_clientes_enderecosRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="id_cliente" msprop:Generator_ColumnVarNameInTable="columnid_cliente" msprop:Generator_ColumnPropNameInRow="id_cliente" msprop:Generator_ColumnPropNameInTable="id_clienteColumn" msprop:Generator_UserColumnName="id_cliente" type="xs:int" />
@@ -337,7 +346,7 @@ SELECT id_endereco, rua, numero, bairro, cidade, uf, cliente_id FROM enderecos W
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="vw_datagrid_clientes" msprop:Generator_TableClassName="vw_datagrid_clientesDataTable" msprop:Generator_TableVarName="tablevw_datagrid_clientes" msprop:Generator_TablePropName="vw_datagrid_clientes" msprop:Generator_RowDeletingName="vw_datagrid_clientesRowDeleting" msprop:Generator_RowChangingName="vw_datagrid_clientesRowChanging" msprop:Generator_RowEvHandlerName="vw_datagrid_clientesRowChangeEventHandler" msprop:Generator_RowDeletedName="vw_datagrid_clientesRowDeleted" msprop:Generator_UserTableName="vw_datagrid_clientes" msprop:Generator_RowChangedName="vw_datagrid_clientesRowChanged" msprop:Generator_RowEvArgName="vw_datagrid_clientesRowChangeEvent" msprop:Generator_RowClassName="vw_datagrid_clientesRow">
+        <xs:element name="vw_datagrid_clientes" msprop:Generator_TableClassName="vw_datagrid_clientesDataTable" msprop:Generator_TableVarName="tablevw_datagrid_clientes" msprop:Generator_RowChangedName="vw_datagrid_clientesRowChanged" msprop:Generator_TablePropName="vw_datagrid_clientes" msprop:Generator_RowDeletingName="vw_datagrid_clientesRowDeleting" msprop:Generator_RowChangingName="vw_datagrid_clientesRowChanging" msprop:Generator_RowEvHandlerName="vw_datagrid_clientesRowChangeEventHandler" msprop:Generator_RowDeletedName="vw_datagrid_clientesRowDeleted" msprop:Generator_RowClassName="vw_datagrid_clientesRow" msprop:Generator_UserTableName="vw_datagrid_clientes" msprop:Generator_RowEvArgName="vw_datagrid_clientesRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Codigo" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnCodigo" msprop:Generator_ColumnPropNameInRow="Codigo" msprop:Generator_ColumnPropNameInTable="CodigoColumn" msprop:Generator_UserColumnName="Codigo" type="xs:int" />
@@ -352,7 +361,7 @@ SELECT id_endereco, rua, numero, bairro, cidade, uf, cliente_id FROM enderecos W
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="vw_datagrid_enderecos" msprop:Generator_TableClassName="vw_datagrid_enderecosDataTable" msprop:Generator_TableVarName="tablevw_datagrid_enderecos" msprop:Generator_TablePropName="vw_datagrid_enderecos" msprop:Generator_RowDeletingName="vw_datagrid_enderecosRowDeleting" msprop:Generator_RowChangingName="vw_datagrid_enderecosRowChanging" msprop:Generator_RowEvHandlerName="vw_datagrid_enderecosRowChangeEventHandler" msprop:Generator_RowDeletedName="vw_datagrid_enderecosRowDeleted" msprop:Generator_UserTableName="vw_datagrid_enderecos" msprop:Generator_RowChangedName="vw_datagrid_enderecosRowChanged" msprop:Generator_RowEvArgName="vw_datagrid_enderecosRowChangeEvent" msprop:Generator_RowClassName="vw_datagrid_enderecosRow">
+        <xs:element name="vw_datagrid_enderecos" msprop:Generator_TableClassName="vw_datagrid_enderecosDataTable" msprop:Generator_TableVarName="tablevw_datagrid_enderecos" msprop:Generator_RowChangedName="vw_datagrid_enderecosRowChanged" msprop:Generator_TablePropName="vw_datagrid_enderecos" msprop:Generator_RowDeletingName="vw_datagrid_enderecosRowDeleting" msprop:Generator_RowChangingName="vw_datagrid_enderecosRowChanging" msprop:Generator_RowEvHandlerName="vw_datagrid_enderecosRowChangeEventHandler" msprop:Generator_RowDeletedName="vw_datagrid_enderecosRowDeleted" msprop:Generator_RowClassName="vw_datagrid_enderecosRow" msprop:Generator_UserTableName="vw_datagrid_enderecos" msprop:Generator_RowEvArgName="vw_datagrid_enderecosRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Codigo" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnCodigo" msprop:Generator_ColumnPropNameInRow="Codigo" msprop:Generator_ColumnPropNameInTable="CodigoColumn" msprop:Generator_UserColumnName="Codigo" type="xs:int" />
@@ -392,7 +401,7 @@ SELECT id_endereco, rua, numero, bairro, cidade, uf, cliente_id FROM enderecos W
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
-      <msdata:Relationship name="FK__enderecos__clien__671F4F74" msdata:parent="clientes" msdata:child="enderecos" msdata:parentkey="id_cliente" msdata:childkey="cliente_id" msprop:Generator_UserChildTable="enderecos" msprop:Generator_ChildPropName="GetenderecosRows" msprop:Generator_UserRelationName="FK__enderecos__clien__671F4F74" msprop:Generator_ParentPropName="clientesRow" msprop:Generator_RelationVarName="relationFK__enderecos__clien__671F4F74" msprop:Generator_UserParentTable="clientes" />
+      <msdata:Relationship name="FK__enderecos__clien__671F4F74" msdata:parent="clientes" msdata:child="enderecos" msdata:parentkey="id_cliente" msdata:childkey="cliente_id" msprop:Generator_UserChildTable="enderecos" msprop:Generator_ChildPropName="GetenderecosRows" msprop:Generator_UserRelationName="FK__enderecos__clien__671F4F74" msprop:Generator_RelationVarName="relationFK__enderecos__clien__671F4F74" msprop:Generator_UserParentTable="clientes" msprop:Generator_ParentPropName="clientesRow" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>
