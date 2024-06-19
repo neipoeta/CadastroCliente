@@ -1,277 +1,79 @@
-﻿using System;
-using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
+﻿using CadastroCliente.DAO;
+using CadastroCliente.Utils;
+using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace CadastroCliente
 {
     public partial class Form1 : Form
     {
-        private string connectionString = "Data Source=dbserver-dev;Initial Catalog=treinamento;User ID=treinamento;Password=treinamento";
         private bool novoCliente;
         private bool novoEndereco;
-        private bool novoEnderecoCadastroCliente;
         private int clienteIdAtual = -1;
         private int enderecoAtual = -1;
 
         public Form1()
         {
             InitializeComponent();
-            CarregarClientes();
-            tabControlClientes.SelectedIndexChanged += TabControlClientes_SelectedIndexChanged;
+            dataGridViewClientes.DataSource = ClienteDAO.CarregarClientes();
+
+            //Event setado nas propriedades do design -> outra maneira de adicionar o event:
+            //tabControlClientes.SelectedIndexChanged += TabControlClientes_SelectedIndexChanged;
 
             BloquearCamposEdicao(true);
             HabilitarCamposEndereco(false);
             buttonEnderecoConfirmarSalvar.Visible = false;
 
+            //verificar se consigo setar nas proproedades dos forms
+            textBoxAnoFundacaoCad.KeyPress += KeyPressNumbers.ApenasNumeros_KeyPress;
+            maskedTextBoxRegistroCad.KeyPress += KeyPressNumbers.ApenasNumeros_KeyPress;
+            maskedTextBoxTelefoneCad.KeyPress += KeyPressNumbers.ApenasNumeros_KeyPress;
         }
 
-        private void TabControlClientes_SelectedIndexChanged(object sender, EventArgs e)
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            this.enderecosTableAdapter.Fill(this.dataSetCliente.enderecos);
+            this.clientesTableAdapter.Fill(this.dataSetCliente.clientes);
+        }
+
+        #region EventsForms
+        private void SalvarToolStripMenuItem2_Click(object sender, EventArgs e)
         {
             if (tabControlClientes.SelectedTab == tabPageClientes)
             {
-                if (dataGridViewClientes.Rows.Count > 0)
-                {
-                    if (dataGridViewClientes.SelectedRows.Count == 0)
-                    {
-                        dataGridViewClientes.ClearSelection();
-                        dataGridViewClientes.Rows[0].Selected = true;
-                    }
-                    PreencherCamposCliente(dataGridViewClientes.SelectedRows[0]);
-                }
+                ButtonClienteNovo_Click(sender, e);
             }
             else if (tabControlClientes.SelectedTab == tabPageEnderecos)
             {
-                if (clienteIdAtual != -1)
-                {
-                    CarregarEnderecos(clienteIdAtual);
-                }
-                else
-                {
-                    dataGridViewEnderecos.DataSource = null;
-                }
+                ButtonEnderecoNovo_Click(sender, e);
             }
         }
 
-        #region DAO
-        private void CarregarClientes()
+        private void EditarToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            if (tabControlClientes.SelectedTab == tabPageClientes)
             {
-                string queryClientes = "SELECT id_cliente AS Codigo, nome AS Nome, telefone AS Telefone, ano_fundacao AS AnoFundacao, registro AS Registro FROM clientes";
-
-                try
-                {
-                    connection.Open();
-                    SqlDataAdapter dataAdapter = new SqlDataAdapter(queryClientes, connection);
-                    DataTable dataTable = new DataTable();
-                    dataAdapter.Fill(dataTable);
-                    dataGridViewClientes.DataSource = dataTable;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Erro ao carregar clientes: " + ex.Message);
-                }
+                ButtonClienteEditar_Click(sender, e);
+            }
+            else if (tabControlClientes.SelectedTab == tabPageEnderecos)
+            {
+                ButtonEnderecoEditar_Click(sender, e);
             }
         }
 
-        private void CarregarEnderecos(int clienteId)
+        private void ExcluirToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            if (tabControlClientes.SelectedTab == tabPageClientes)
             {
-                string queryEnderecos = "SELECT id_endereco, rua, numero, bairro, cidade, uf FROM enderecos WHERE cliente_id = @clienteId";
-
-                SqlCommand command = new SqlCommand(queryEnderecos, connection);
-                command.Parameters.AddWithValue("@clienteId", clienteId);
-
-                try
-                {
-                    connection.Open();
-                    SqlDataAdapter dataAdapter = new SqlDataAdapter(command);
-                    DataTable dataTable = new DataTable();
-                    dataAdapter.Fill(dataTable);
-                    dataGridViewEnderecos.DataSource = dataTable;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Erro ao carregar endereços: " + ex.Message);
-                }
+                ButtonClienteExcluir_Click(sender, e);
+            }
+            else if (tabControlClientes.SelectedTab == tabPageEnderecos)
+            {
+                ButtonEnderecoExcluir_Click(sender, e);
             }
         }
 
-        private void IncluirCliente()
-        {
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                string queryCliente = "INSERT INTO Clientes (nome, ano_fundacao, telefone, registro) " +
-                                      "OUTPUT INSERTED.id_cliente " +
-                                      "VALUES (@nome, @ano_fundacao, @telefone, @registro)";
-
-                try
-                {
-                    connection.Open();
-
-                    SqlCommand commandCliente = new SqlCommand(queryCliente, connection);
-                    commandCliente.Parameters.AddWithValue("@nome", textBoxNomeCad.Text);
-                    commandCliente.Parameters.AddWithValue("@ano_fundacao", int.Parse(textBoxAnoFundacaoCad.Text));
-                    commandCliente.Parameters.AddWithValue("@telefone", new string(maskedTextBoxTelefoneCad.Text.Where(char.IsDigit).ToArray()));
-                    commandCliente.Parameters.AddWithValue("@registro", new string(maskedTextBoxRegistroCad.Text.Where(char.IsDigit).ToArray()));
-
-                    clienteIdAtual = (int)commandCliente.ExecuteScalar();
-
-                    MessageBox.Show("Cliente salvo com sucesso!");
-                    CarregarClientes();
-                    LimparCampos();
-                    NavegarParaEndereco(clienteIdAtual);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Erro ao salvar cliente: " + ex.Message);
-                }
-            }
-        }
-
-        private void IncluirEndereco(int clienteId)
-        {
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                string query = "INSERT INTO Enderecos (rua, numero, bairro, cidade, uf, cliente_id) VALUES (@rua, @numero, @bairro, @cidade, @uf, @cliente_id)";
-
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@rua", textBoxEnderecoRua.Text);
-                command.Parameters.AddWithValue("@numero", textBoxEnderecoNumero.Text);
-                command.Parameters.AddWithValue("@bairro", textBoxEnderecoBairro.Text);
-                command.Parameters.AddWithValue("@cidade", textBoxEnderecoCidade.Text);
-                command.Parameters.AddWithValue("@uf", textBoxEnderecoUF.Text);
-                command.Parameters.AddWithValue("@cliente_id", clienteId);
-
-                try
-                {
-                    connection.Open();
-                    command.ExecuteNonQuery();
-                    MessageBox.Show("Endereço criado com sucesso!");
-                    CarregarEnderecos(clienteId);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Erro ao criar endereço: " + ex.Message);
-                }
-            }
-        }
-
-        private void AtualizarCliente(int id)
-        {
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                string queryCliente = "UPDATE Clientes SET nome = @nome, telefone = @telefone, ano_fundacao = @ano_fundacao, registro = @registro WHERE id_cliente = @id";
-
-                try
-                {
-                    connection.Open();
-
-                    SqlCommand commandCliente = new SqlCommand(queryCliente, connection);
-                    commandCliente.Parameters.AddWithValue("@nome", textBoxNomeCad.Text);
-                    commandCliente.Parameters.AddWithValue("@ano_fundacao", int.Parse(textBoxAnoFundacaoCad.Text));
-                    commandCliente.Parameters.AddWithValue("@telefone", new string(maskedTextBoxTelefoneCad.Text.Where(char.IsDigit).ToArray()));
-                    commandCliente.Parameters.AddWithValue("@registro", new string(maskedTextBoxRegistroCad.Text.Where(char.IsDigit).ToArray()));
-                    commandCliente.Parameters.AddWithValue("@id", id);
-
-                    commandCliente.ExecuteNonQuery();
-
-                    MessageBox.Show("Cliente atualizado com sucesso!");
-                    CarregarClientes();
-                    LimparCampos();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Erro ao atualizar cliente: " + ex.Message);
-                }
-            }
-        }
-
-        private void ExcluirCliente(int id)
-        {
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                string queryExcluirEnderecos = "DELETE FROM Enderecos WHERE cliente_id = @cliente_id";
-                string queryExcluirCliente = "DELETE FROM Clientes WHERE id_cliente = @id";
-
-                try
-                {
-                    connection.Open();
-
-                    SqlCommand commandExcluirEnderecos = new SqlCommand(queryExcluirEnderecos, connection);
-                    commandExcluirEnderecos.Parameters.AddWithValue("@cliente_id", id);
-                    commandExcluirEnderecos.ExecuteNonQuery();
-
-                    SqlCommand commandExcluirCliente = new SqlCommand(queryExcluirCliente, connection);
-                    commandExcluirCliente.Parameters.AddWithValue("@id", id);
-                    commandExcluirCliente.ExecuteNonQuery();
-
-                    MessageBox.Show("Cliente e seus endereços excluídos com sucesso!");
-                    CarregarClientes();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Erro ao excluir cliente: " + ex.Message);
-                }
-            }
-        }
-
-        private void AtualizarEndereco(int id)
-        {
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                string query = "UPDATE Enderecos SET rua = @rua, numero = @numero, bairro = @bairro, cidade = @cidade, uf = @uf WHERE id_endereco = @id";
-
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@rua", textBoxEnderecoRua.Text);
-                command.Parameters.AddWithValue("@numero", textBoxEnderecoNumero.Text);
-                command.Parameters.AddWithValue("@bairro", textBoxEnderecoBairro.Text);
-                command.Parameters.AddWithValue("@cidade", textBoxEnderecoCidade.Text);
-                command.Parameters.AddWithValue("@uf", textBoxEnderecoUF.Text);
-                command.Parameters.AddWithValue("@id", id);
-
-                try
-                {
-                    connection.Open();
-                    command.ExecuteNonQuery();
-                    MessageBox.Show("Endereço atualizado com sucesso!");
-                    CarregarEnderecos(clienteIdAtual);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Erro ao atualizar endereço: " + ex.Message);
-                }
-            }
-        }
-
-        private void ExcluirEndereco(int id)
-        {
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                string query = "DELETE FROM Enderecos WHERE id_endereco = @id";
-
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@id", id);
-
-                try
-                {
-                    connection.Open();
-                    command.ExecuteNonQuery();
-                    MessageBox.Show("Endereço excluído com sucesso!");
-                    CarregarEnderecos(clienteIdAtual); // Use clienteIdAtual to load addresses
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Erro ao excluir endereço: " + ex.Message);
-                }
-            }
-        }
-        #endregion
-
-        #region EventsClicks
         private void DataGridViewClientes_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -294,29 +96,47 @@ namespace CadastroCliente
 
         private void ButtonClienteConfirmar_Click(object sender, EventArgs e)
         {
+            maskedTextBoxRegistroCad.Mask = "";
+            maskedTextBoxTelefoneCad.Mask = "";
             if (!ValidacaoUtils.ValidarCamposClientes(
                 textBoxNomeCad.Text,
                 textBoxAnoFundacaoCad.Text,
-                maskedTextBoxRegistroCad.Text,
-                maskedTextBoxTelefoneCad.Text
+                maskedTextBoxTelefoneCad.Text,
+                maskedTextBoxRegistroCad.Text
+                
             ))
             {
                 return;
             }
-
-            maskedTextBoxRegistroCad.Mask = "";
-            maskedTextBoxTelefoneCad.Mask = "";
-
             if (novoCliente)
             {
-                IncluirCliente();
+                ClienteDAO.IncluirCliente(
+                    clienteIdAtual,
+                    textBoxNomeCad.Text,
+                    textBoxAnoFundacaoCad.Text,
+                    maskedTextBoxTelefoneCad.Text,
+                    maskedTextBoxRegistroCad.Text);
+
+                dataGridViewClientes.DataSource = ClienteDAO.CarregarClientes();
+                LimparCampos();
             }
             else
             {
-                AtualizarCliente(clienteIdAtual);
+                ClienteDAO.AtualizarCliente(
+                    clienteIdAtual,
+                    textBoxNomeCad.Text,
+                    textBoxAnoFundacaoCad.Text,
+                    maskedTextBoxTelefoneCad.Text,
+                    maskedTextBoxRegistroCad.Text);
+
+                dataGridViewClientes.DataSource = ClienteDAO.CarregarClientes();
             }
 
-            BloquearCamposEdicao(true);
+            if (!novoCliente)
+            {
+                BloquearCamposEdicao(true);
+            }
+
         }
 
         private void ButtonEnderecoConfirmar_Click(object sender, EventArgs e)
@@ -332,25 +152,31 @@ namespace CadastroCliente
                 return;
             }
 
-            if(!novoEnderecoCadastroCliente)
+            if (!novoEndereco)
             {
-                if (!novoEndereco)
-                {
-                    AtualizarEndereco(enderecoAtual);
-                } else
-                {
-                    IncluirEndereco(clienteIdAtual);
-                }              
-            } else
-            {
-                IncluirEndereco(clienteIdAtual);
+                EnderecoDAO.AtualizarEndereco(enderecoAtual,
+                    textBoxEnderecoRua.Text,
+                    textBoxEnderecoNumero.Text,
+                    textBoxEnderecoBairro.Text,
+                    textBoxEnderecoCidade.Text,
+                    textBoxEnderecoUF.Text);
+                dataGridViewEnderecos.DataSource = EnderecoDAO.CarregarEnderecos(clienteIdAtual);
             }
-           
+            else
+            {
+                EnderecoDAO.IncluirEndereco(clienteIdAtual,
+                    textBoxEnderecoRua.Text,
+                    textBoxEnderecoNumero.Text,
+                    textBoxEnderecoBairro.Text,
+                    textBoxEnderecoCidade.Text,
+                    textBoxEnderecoUF.Text);
+                dataGridViewEnderecos.DataSource = EnderecoDAO.CarregarEnderecos(clienteIdAtual);
+            }
+
 
             BloquearCamposEdicao(true);
             LimparCampos();
             novoEndereco = false;
-            novoEnderecoCadastroCliente = false;
             tabControlClientes.SelectedTab = tabPageClientes;
         }
 
@@ -363,26 +189,10 @@ namespace CadastroCliente
             radioButtonPessoaJuridicaCad.Checked = false;
             novoCliente = true;
             clienteIdAtual = -1;
-            novoEnderecoCadastroCliente = true;
         }
 
         private void ButtonClienteEditar_Click(object sender, EventArgs e)
         {
-            if (dataGridViewClientes.SelectedRows.Count > 0)
-            {
-                DataGridViewRow row = dataGridViewClientes.SelectedRows[0];
-                PreencherCamposCliente(row);
-                clienteIdAtual = Convert.ToInt32(row.Cells[0].Value);
-            }
-            else if (dataGridViewClientes.Rows.Count > 0)
-            {
-                dataGridViewClientes.ClearSelection();
-                dataGridViewClientes.Rows[0].Selected = true;
-                DataGridViewRow row = dataGridViewClientes.Rows[0];
-                PreencherCamposCliente(row);
-                clienteIdAtual = Convert.ToInt32(row.Cells[0].Value);
-            }
-
             BloquearCamposEdicao(false);
             string registro = maskedTextBoxRegistroCad.Text.Replace(".", "").Replace("-", "").Replace("/", "").Trim();
             if (registro.Length > 14)
@@ -403,7 +213,8 @@ namespace CadastroCliente
                 var result = MessageBox.Show("Você tem certeza que deseja excluir este cliente?", "Confirmação de Exclusão", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)
                 {
-                    ExcluirCliente(clienteIdAtual);
+                    ClienteDAO.ExcluirCliente(clienteIdAtual);
+                    dataGridViewClientes.DataSource = ClienteDAO.CarregarClientes();
                 }
             }
         }
@@ -419,14 +230,23 @@ namespace CadastroCliente
         private void ButtonEnderecoEditar_Click(object sender, EventArgs e)
         {
             novoEndereco = false;
-            novoEnderecoCadastroCliente = false;
             if (dataGridViewEnderecos.SelectedCells.Count > 0)
             {
-                DataGridViewRow row = dataGridViewEnderecos.Rows[0];
-                PreencherCamposEndereco(row);
+                foreach (DataGridViewRow rowEndereco in dataGridViewEnderecos.Rows)
+                {
+                    var idEndereco = rowEndereco.Cells[0].Value.ToString();
+
+                    if (idEndereco == enderecoAtual.ToString())
+                    {
+                        {
+                            PreencherCamposEndereco(rowEndereco);
+                            HabilitarCamposEndereco(true);
+                            buttonEnderecoConfirmarSalvar.Visible = true;
+                        }
+                    }
+                }
             }
-            HabilitarCamposEndereco(true);
-            buttonEnderecoConfirmarSalvar.Visible = true;
+
         }
 
         private void ButtonEnderecoExcluir_Click(object sender, EventArgs e)
@@ -434,52 +254,75 @@ namespace CadastroCliente
             if (dataGridViewEnderecos.SelectedCells.Count > 0)
             {
                 var result = MessageBox.Show("Você tem certeza que deseja excluir este endereco?", "Confirmar Exclusão", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                if(result == DialogResult.Yes)
+                if (result == DialogResult.Yes)
                 {
-                    ExcluirEndereco(enderecoAtual);
+                    EnderecoDAO.ExcluirEndereco(enderecoAtual);
+                    dataGridViewEnderecos.DataSource = EnderecoDAO.CarregarEnderecos(clienteIdAtual);
                 }
             }
         }
 
-        private void SalvarToolStripMenuItem2_Click(object sender, EventArgs e)
-        {
-            //Strip Clique Correto
-            if (tabControlClientes.SelectedTab == tabPageClientes)
-            {
-                ButtonClienteNovo_Click(sender, e);
-            } else if (tabControlClientes.SelectedTab == tabPageEnderecos)
-            {
-                ButtonEnderecoNovo_Click(sender, e);
-            }
-        }
-
-        private void EditarToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void TabControlClientes_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (tabControlClientes.SelectedTab == tabPageClientes)
             {
-                ButtonClienteEditar_Click(sender, e);
+                if (dataGridViewClientes.Rows.Count > 0)
+                {
+                    if (dataGridViewClientes.SelectedRows.Count == 0)
+                    {
+                        dataGridViewClientes.ClearSelection();
+                        dataGridViewClientes.Rows[0].Selected = true;
+                    }
+                    PreencherCamposCliente(dataGridViewClientes.SelectedRows[0]);
+                }
+                LimparCampos();
+                BloquearCamposEdicao(true);
             }
             else if (tabControlClientes.SelectedTab == tabPageEnderecos)
             {
-                ButtonEnderecoEditar_Click(sender, e);
+                if (clienteIdAtual != -1)
+                {
+                    dataGridViewEnderecos.DataSource = EnderecoDAO.CarregarEnderecos(clienteIdAtual);
+                }
+                else
+                {
+                    dataGridViewEnderecos.DataSource = EnderecoDAO.CarregarEnderecos(1);
+                }
+                if(dataGridViewEnderecos.Rows.Count > 0)
+                {
+                    DataGridViewRow row = this.dataGridViewEnderecos.Rows[0];
+                    PreencherCamposEndereco(row);
+                    enderecoAtual = Convert.ToInt32(row.Cells[0].Value);
+                }
+                if (!novoCliente)
+                {
+                    BloquearCamposEdicao(true);
+                }
             }
         }
 
-        private void ExcluirToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void dataGridViewClientes_CellMouseMove(object sender, DataGridViewCellMouseEventArgs e)
         {
-            //Strip Clique Correto
-            if (tabControlClientes.SelectedTab == tabPageClientes)
-            {
-                ButtonClienteExcluir_Click(sender, e);
-            }
-            else if (tabControlClientes.SelectedTab == tabPageEnderecos)
-            {
-                ButtonEnderecoExcluir_Click(sender, e);
-            }
+            HoverStyle.Hover(dataGridViewClientes, e.RowIndex, Color.LightCyan, Color.Black);
+        }
+
+        private void dataGridViewClientes_CellMouseLeave(object sender, DataGridViewCellEventArgs e)
+        {
+            HoverStyle.Hover(dataGridViewClientes, e.RowIndex, Color.White, Color.Black);
+        }
+
+        private void dataGridViewEnderecos_CellMouseMove(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            HoverStyle.Hover(dataGridViewEnderecos, e.RowIndex, Color.LightCyan, Color.Black);
+        }
+
+        private void dataGridViewEnderecos_CellMouseLeave(object sender, DataGridViewCellEventArgs e)
+        {
+            HoverStyle.Hover(dataGridViewEnderecos, e.RowIndex, Color.White, Color.Black);
         }
         #endregion
 
-        #region auxiliares
+        #region Auxiliares
         private void LimparCampos()
         {
             textBoxNomeCad.Clear();
@@ -549,8 +392,8 @@ namespace CadastroCliente
         private void PreencherCamposCliente(DataGridViewRow row)
         {
             textBoxNomeCad.Text = row.Cells[1].Value.ToString();
-            textBoxAnoFundacaoCad.Text = row.Cells[3].Value.ToString();
-            maskedTextBoxTelefoneCad.Text = row.Cells[2].Value.ToString();
+            textBoxAnoFundacaoCad.Text = row.Cells[2].Value.ToString();
+            maskedTextBoxTelefoneCad.Text = row.Cells[3].Value.ToString();
             maskedTextBoxRegistroCad.Text = row.Cells[4].Value.ToString();
         }
 
@@ -563,21 +406,15 @@ namespace CadastroCliente
             textBoxEnderecoUF.Text = row.Cells[5].Value.ToString();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            this.enderecosTableAdapter.Fill(this.dataSetCliente.enderecos);
-            this.clientesTableAdapter.Fill(this.dataSetCliente.clientes);
-        }
-
-        private void NavegarParaEndereco(int clienteId)
-        {
-            tabControlClientes.SelectedTab = tabPageEnderecos;
-            LimparCampos();
-            HabilitarCamposEndereco(true);
-            buttonEnderecoConfirmarSalvar.Visible = true;
-            dataGridViewEnderecos.DataSource = null;
-            MessageBox.Show("Cliente incluído com sucesso! Cadastre o endereço.");
-        }
+        //private void NavegarParaEndereco(int clienteId)
+        //{
+        //    tabControlClientes.SelectedTab = tabPageEnderecos;
+        //    LimparCampos();
+        //    HabilitarCamposEndereco(true);
+        //    buttonEnderecoConfirmarSalvar.Visible = true;
+        //    dataGridViewEnderecos.DataSource = null;
+        //    MessageBox.Show("Cliente incluído com sucesso! Cadastre o endereço.");
+        //}
         #endregion
     }
 }

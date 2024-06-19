@@ -2,7 +2,7 @@
 
 public static class ValidacaoUtils
 {
-    public static bool ValidarCamposClientes(string nome, string ano_fundacao, string registro, string telefone)
+    public static bool ValidarCamposClientes(string nome, string ano_fundacao, string telefone, string registro)
     {
         if (string.IsNullOrWhiteSpace(nome))
         {
