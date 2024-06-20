@@ -16,7 +16,8 @@ namespace CadastroCliente
         public Form1()
         {
             InitializeComponent();
-            dataGridViewClientes.DataSource = ClienteDAO.CarregarClientes();
+            //dataGridViewClientes.DataSource = ClienteDAO.CarregarClientes();
+            dataGridViewClientes.DataSource = ClienteDAO.CarregarClientesComEndereco();
 
             //Event setado nas propriedades do design -> outra maneira de adicionar o event:
             //tabControlClientes.SelectedIndexChanged += TabControlClientes_SelectedIndexChanged;
@@ -173,7 +174,6 @@ namespace CadastroCliente
                 dataGridViewEnderecos.DataSource = EnderecoDAO.CarregarEnderecos(clienteIdAtual);
             }
 
-
             BloquearCamposEdicao(true);
             LimparCampos();
             novoEndereco = false;
@@ -246,7 +246,6 @@ namespace CadastroCliente
                     }
                 }
             }
-
         }
 
         private void ButtonEnderecoExcluir_Click(object sender, EventArgs e)

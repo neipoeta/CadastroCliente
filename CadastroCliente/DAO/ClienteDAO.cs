@@ -35,6 +35,20 @@ namespace CadastroCliente.DAO
             }
         }
 
+
+        public static DataTable CarregarClientesComEndereco()
+        {
+            string query = "SELECT * FROM vw_clientes_com_endereco";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlDataAdapter dataAdapter = new SqlDataAdapter(query, connection);
+                DataTable dataTable = new DataTable();
+                dataAdapter.Fill(dataTable);
+                //dataGridViewClientes.DataSource = dt;
+                return dataTable;
+            }
+        }
+
         public static void IncluirCliente(int clienteIdAtual, string nome, string ano_fundacao, string telefone, string registro)
         {           
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -98,16 +112,16 @@ namespace CadastroCliente.DAO
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string queryExcluirEnderecos = "DELETE FROM Enderecos WHERE cliente_id = @cliente_id";
+                //string queryExcluirEnderecos = "DELETE FROM Enderecos WHERE cliente_id = @cliente_id";
                 string queryExcluirCliente = "DELETE FROM Clientes WHERE id_cliente = @id";
 
                 try
                 {
                     connection.Open();
 
-                    SqlCommand commandExcluirEnderecos = new SqlCommand(queryExcluirEnderecos, connection);
-                    commandExcluirEnderecos.Parameters.AddWithValue("@cliente_id", id);
-                    commandExcluirEnderecos.ExecuteNonQuery();
+                    //SqlCommand commandExcluirEnderecos = new SqlCommand(queryExcluirEnderecos, connection);
+                    //commandExcluirEnderecos.Parameters.AddWithValue("@cliente_id", id);
+                    //commandExcluirEnderecos.ExecuteNonQuery();
 
                     SqlCommand commandExcluirCliente = new SqlCommand(queryExcluirCliente, connection);
                     commandExcluirCliente.Parameters.AddWithValue("@id", id);
@@ -120,6 +134,16 @@ namespace CadastroCliente.DAO
                     MessageBox.Show("Erro ao excluir cliente: " + ex.Message);
                 }
             }
+        }
+
+
+        // Atualizando a fonte de dados da grid de clientes
+        // ClienteDAO.CarregarClientesComEndereco();
+        // Método para carregar clientes com endereços
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
 
     }

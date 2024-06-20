@@ -104,7 +104,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Margin = new System.Windows.Forms.Padding(10, 0, 2, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(569, 25);
+            this.menuStrip1.Size = new System.Drawing.Size(860, 25);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -165,12 +165,13 @@
             this.tabControlClientes.Appearance = System.Windows.Forms.TabAppearance.Buttons;
             this.tabControlClientes.Controls.Add(this.tabPageClientes);
             this.tabControlClientes.Controls.Add(this.tabPageEnderecos);
+            this.tabControlClientes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlClientes.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControlClientes.ItemSize = new System.Drawing.Size(50, 30);
-            this.tabControlClientes.Location = new System.Drawing.Point(0, 28);
+            this.tabControlClientes.Location = new System.Drawing.Point(0, 25);
             this.tabControlClientes.Name = "tabControlClientes";
             this.tabControlClientes.SelectedIndex = 0;
-            this.tabControlClientes.Size = new System.Drawing.Size(569, 456);
+            this.tabControlClientes.Size = new System.Drawing.Size(860, 577);
             this.tabControlClientes.TabIndex = 6;
             this.tabControlClientes.Tag = "Clientes";
             this.tabControlClientes.SelectedIndexChanged += new System.EventHandler(this.TabControlClientes_SelectedIndexChanged);
@@ -186,17 +187,17 @@
             this.tabPageClientes.Margin = new System.Windows.Forms.Padding(0);
             this.tabPageClientes.Name = "tabPageClientes";
             this.tabPageClientes.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageClientes.Size = new System.Drawing.Size(561, 418);
+            this.tabPageClientes.Size = new System.Drawing.Size(852, 539);
             this.tabPageClientes.TabIndex = 0;
             this.tabPageClientes.Text = "Cliente";
             // 
             // dataGridViewClientes
             // 
             this.dataGridViewClientes.AllowUserToAddRows = false;
-            this.dataGridViewClientes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewClientes.BackgroundColor = System.Drawing.Color.White;
             this.dataGridViewClientes.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridViewClientes.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
+            this.dataGridViewClientes.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -215,11 +216,12 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewClientes.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dataGridViewClientes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewClientes.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dataGridViewClientes.Location = new System.Drawing.Point(31, 19);
+            this.dataGridViewClientes.Location = new System.Drawing.Point(3, 3);
             this.dataGridViewClientes.Name = "dataGridViewClientes";
             this.dataGridViewClientes.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.dataGridViewClientes.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
+            this.dataGridViewClientes.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -240,7 +242,7 @@
             this.dataGridViewClientes.RowTemplate.DefaultCellStyle.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewClientes.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dataGridViewClientes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewClientes.Size = new System.Drawing.Size(500, 150);
+            this.dataGridViewClientes.Size = new System.Drawing.Size(846, 306);
             this.dataGridViewClientes.TabIndex = 8;
             this.dataGridViewClientes.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewClientes_CellContentClick);
             this.dataGridViewClientes.CellMouseLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewClientes_CellMouseLeave);
@@ -248,6 +250,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.groupBox2.Controls.Add(this.buttonClienteConfirmarSalvar);
             this.groupBox2.Controls.Add(this.buttonClienteExluir);
             this.groupBox2.Controls.Add(this.buttonClienteEditar);
@@ -262,11 +265,12 @@
             this.groupBox2.Controls.Add(this.telefoneCad);
             this.groupBox2.Controls.Add(this.nomeCad);
             this.groupBox2.Controls.Add(this.textBoxNomeCad);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.groupBox2.Location = new System.Drawing.Point(31, 185);
+            this.groupBox2.Location = new System.Drawing.Point(3, 309);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(500, 227);
+            this.groupBox2.Size = new System.Drawing.Size(846, 227);
             this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Dados do Cliente";
@@ -421,6 +425,7 @@
             // textBoxNomeCad
             // 
             this.textBoxNomeCad.Location = new System.Drawing.Point(83, 67);
+            this.textBoxNomeCad.MaxLength = 50;
             this.textBoxNomeCad.Name = "textBoxNomeCad";
             this.textBoxNomeCad.Size = new System.Drawing.Size(208, 23);
             this.textBoxNomeCad.TabIndex = 0;
@@ -433,7 +438,7 @@
             this.tabPageEnderecos.Location = new System.Drawing.Point(4, 34);
             this.tabPageEnderecos.Name = "tabPageEnderecos";
             this.tabPageEnderecos.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageEnderecos.Size = new System.Drawing.Size(561, 418);
+            this.tabPageEnderecos.Size = new System.Drawing.Size(639, 427);
             this.tabPageEnderecos.TabIndex = 1;
             this.tabPageEnderecos.Text = "Endereços";
             // 
@@ -443,6 +448,7 @@
             this.dataGridViewEnderecos.BackgroundColor = System.Drawing.Color.White;
             this.dataGridViewEnderecos.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridViewEnderecos.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
+            this.dataGridViewEnderecos.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             this.dataGridViewEnderecos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewEnderecos.Cursor = System.Windows.Forms.Cursors.Hand;
             dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
@@ -453,8 +459,9 @@
             dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewEnderecos.DefaultCellStyle = dataGridViewCellStyle5;
+            this.dataGridViewEnderecos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewEnderecos.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dataGridViewEnderecos.Location = new System.Drawing.Point(31, 18);
+            this.dataGridViewEnderecos.Location = new System.Drawing.Point(3, 3);
             this.dataGridViewEnderecos.Name = "dataGridViewEnderecos";
             this.dataGridViewEnderecos.RowHeadersVisible = false;
             this.dataGridViewEnderecos.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
@@ -464,7 +471,7 @@
             this.dataGridViewEnderecos.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White;
             this.dataGridViewEnderecos.RowTemplate.DefaultCellStyle.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewEnderecos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewEnderecos.Size = new System.Drawing.Size(500, 150);
+            this.dataGridViewEnderecos.Size = new System.Drawing.Size(633, 194);
             this.dataGridViewEnderecos.TabIndex = 5;
             this.dataGridViewEnderecos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewEnderecos_CellContentClick);
             this.dataGridViewEnderecos.CellMouseLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewEnderecos_CellMouseLeave);
@@ -487,11 +494,12 @@
             this.groupBoxEnderecos.Controls.Add(this.label9);
             this.groupBoxEnderecos.Controls.Add(this.label10);
             this.groupBoxEnderecos.Controls.Add(this.textBoxEnderecoRua);
+            this.groupBoxEnderecos.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.groupBoxEnderecos.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBoxEnderecos.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.groupBoxEnderecos.Location = new System.Drawing.Point(31, 185);
+            this.groupBoxEnderecos.Location = new System.Drawing.Point(3, 197);
             this.groupBoxEnderecos.Name = "groupBoxEnderecos";
-            this.groupBoxEnderecos.Size = new System.Drawing.Size(500, 227);
+            this.groupBoxEnderecos.Size = new System.Drawing.Size(633, 227);
             this.groupBoxEnderecos.TabIndex = 4;
             this.groupBoxEnderecos.TabStop = false;
             this.groupBoxEnderecos.Text = "Endereços";
@@ -680,14 +688,17 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.Info;
-            this.ClientSize = new System.Drawing.Size(569, 490);
+            this.ClientSize = new System.Drawing.Size(860, 602);
             this.Controls.Add(this.tabControlClientes);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.TransparencyKey = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
