@@ -2,7 +2,7 @@
 
 public static class ValidacaoUtils
 {
-    public static bool ValidarCamposClientes(string nome, string ano_fundacao, string telefone, string registro)
+    public static bool ValidarCamposClientes(string nome, string data_fundacao, string telefone, string registro)
     {
         if (string.IsNullOrWhiteSpace(nome))
         {
@@ -10,7 +10,7 @@ public static class ValidacaoUtils
             return false;
         }
 
-        if (string.IsNullOrWhiteSpace(ano_fundacao))
+        if (string.IsNullOrWhiteSpace(data_fundacao))
         {
             MessageBox.Show("O campo Ano Fundação é obrigatório.", "Validação", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             return false;

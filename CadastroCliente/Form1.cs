@@ -1,6 +1,7 @@
 ﻿using CadastroCliente.DAO;
 using CadastroCliente.Utils;
 using System;
+using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -16,26 +17,22 @@ namespace CadastroCliente
         public Form1()
         {
             InitializeComponent();
-            //dataGridViewClientes.DataSource = ClienteDAO.CarregarClientes();
             dataGridViewClientes.DataSource = ClienteDAO.CarregarClientesComEndereco();
-
             //Event setado nas propriedades do design -> outra maneira de adicionar o event:
             //tabControlClientes.SelectedIndexChanged += TabControlClientes_SelectedIndexChanged;
-
             BloquearCamposEdicao(true);
             HabilitarCamposEndereco(false);
             buttonEnderecoConfirmarSalvar.Visible = false;
-
             //verificar se consigo setar nas proproedades dos forms
             textBoxAnoFundacaoCad.KeyPress += KeyPressNumbers.ApenasNumeros_KeyPress;
             maskedTextBoxRegistroCad.KeyPress += KeyPressNumbers.ApenasNumeros_KeyPress;
             maskedTextBoxTelefoneCad.KeyPress += KeyPressNumbers.ApenasNumeros_KeyPress;
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.enderecosTableAdapter.Fill(this.dataSetCliente.enderecos);
-            this.clientesTableAdapter.Fill(this.dataSetCliente.clientes);
+            
         }
 
         #region EventsForms
@@ -79,6 +76,8 @@ namespace CadastroCliente
         {
             if (e.RowIndex >= 0)
             {
+                ClienteDAO.CarregarClientes();
+
                 DataGridViewRow rowClientes = this.dataGridViewClientes.Rows[e.RowIndex];
                 PreencherCamposCliente(rowClientes);
                 clienteIdAtual = Convert.ToInt32(rowClientes.Cells[0].Value);
@@ -118,7 +117,7 @@ namespace CadastroCliente
                     maskedTextBoxTelefoneCad.Text,
                     maskedTextBoxRegistroCad.Text);
 
-                dataGridViewClientes.DataSource = ClienteDAO.CarregarClientes();
+                dataGridViewClientes.DataSource = ClienteDAO.CarregarClientesComEndereco();
                 LimparCampos();
             }
             else
@@ -130,14 +129,15 @@ namespace CadastroCliente
                     maskedTextBoxTelefoneCad.Text,
                     maskedTextBoxRegistroCad.Text);
 
-                dataGridViewClientes.DataSource = ClienteDAO.CarregarClientes();
+                dataGridViewClientes.DataSource = ClienteDAO.CarregarClientesComEndereco();
             }
 
             if (!novoCliente)
             {
                 BloquearCamposEdicao(true);
             }
-
+            maskedTextBoxRegistroCad.Mask = "000.000.000-00";
+            maskedTextBoxTelefoneCad.Mask = "(00) 00000-0000";
         }
 
         private void ButtonEnderecoConfirmar_Click(object sender, EventArgs e)
@@ -178,6 +178,8 @@ namespace CadastroCliente
             LimparCampos();
             novoEndereco = false;
             tabControlClientes.SelectedTab = tabPageClientes;
+            dataGridViewClientes.DataSource = ClienteDAO.CarregarClientesComEndereco();
+            //todo: carregar clientes -> view
         }
 
         private void ButtonClienteNovo_Click(object sender, EventArgs e)
@@ -214,7 +216,7 @@ namespace CadastroCliente
                 if (result == DialogResult.Yes)
                 {
                     ClienteDAO.ExcluirCliente(clienteIdAtual);
-                    dataGridViewClientes.DataSource = ClienteDAO.CarregarClientes();
+                    dataGridViewClientes.DataSource = ClienteDAO.CarregarClientesComEndereco(); //todo
                 }
             }
         }
@@ -257,6 +259,7 @@ namespace CadastroCliente
                 {
                     EnderecoDAO.ExcluirEndereco(enderecoAtual);
                     dataGridViewEnderecos.DataSource = EnderecoDAO.CarregarEnderecos(clienteIdAtual);
+                    dataGridViewClientes.DataSource = ClienteDAO.CarregarClientesComEndereco();
                 }
             }
         }
@@ -390,10 +393,23 @@ namespace CadastroCliente
 
         private void PreencherCamposCliente(DataGridViewRow row)
         {
-            textBoxNomeCad.Text = row.Cells[1].Value.ToString();
-            textBoxAnoFundacaoCad.Text = row.Cells[2].Value.ToString();
-            maskedTextBoxTelefoneCad.Text = row.Cells[3].Value.ToString();
-            maskedTextBoxRegistroCad.Text = row.Cells[4].Value.ToString();
+            int idCliente = Convert.ToInt32(row.Cells[0].Value);
+
+            DataTable clienteData = ClienteDAO.CarregarClientes(idCliente);
+
+            if (clienteData.Rows.Count > 0)
+            {
+                DataRow cliente = clienteData.Rows[0];
+
+                textBoxNomeCad.Text = cliente["Nome"].ToString();
+                textBoxAnoFundacaoCad.Text = cliente["DataFundacao"].ToString();
+                maskedTextBoxTelefoneCad.Text = cliente["Telefone"].ToString();
+                maskedTextBoxRegistroCad.Text = cliente["Registro"].ToString();
+            }
+            else
+            {
+                MessageBox.Show("Cliente não encontrado.");
+            }
         }
 
         private void PreencherCamposEndereco(DataGridViewRow row)
@@ -405,15 +421,27 @@ namespace CadastroCliente
             textBoxEnderecoUF.Text = row.Cells[5].Value.ToString();
         }
 
-        //private void NavegarParaEndereco(int clienteId)
-        //{
-        //    tabControlClientes.SelectedTab = tabPageEnderecos;
-        //    LimparCampos();
-        //    HabilitarCamposEndereco(true);
-        //    buttonEnderecoConfirmarSalvar.Visible = true;
-        //    dataGridViewEnderecos.DataSource = null;
-        //    MessageBox.Show("Cliente incluído com sucesso! Cadastre o endereço.");
-        //}
+        private void Form1_Resize(object sender, EventArgs e)
+        {
+            if (this.WindowState == FormWindowState.Normal)
+            {
+                groupBoxEnderecos.Dock = DockStyle.Bottom;
+                groupBox2.Dock = DockStyle.Bottom;
+
+                dataGridViewClientes.Dock = DockStyle.Fill;
+                dataGridViewEnderecos.Dock = DockStyle.Fill;
+            }
+            else
+            {
+                groupBoxEnderecos.Dock = DockStyle.Right;
+                groupBox2.Dock = DockStyle.Right;
+
+                dataGridViewClientes.Dock = DockStyle.Right;
+                dataGridViewEnderecos.Dock = DockStyle.Right;
+            }
+            
+        }
         #endregion
+
     }
 }

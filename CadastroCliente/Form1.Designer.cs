@@ -35,6 +35,8 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.clientesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.salvarToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
@@ -47,6 +49,7 @@
             this.tabPageClientes = new System.Windows.Forms.TabPage();
             this.dataGridViewClientes = new System.Windows.Forms.DataGridView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.textBoxAnoFundacaoCad = new System.Windows.Forms.MaskedTextBox();
             this.buttonClienteConfirmarSalvar = new System.Windows.Forms.Button();
             this.buttonClienteExluir = new System.Windows.Forms.Button();
             this.buttonClienteEditar = new System.Windows.Forms.Button();
@@ -55,9 +58,8 @@
             this.maskedTextBoxRegistroCad = new System.Windows.Forms.MaskedTextBox();
             this.radioButtonPessoaJuridicaCad = new System.Windows.Forms.RadioButton();
             this.radioButtonPessoaFisicaCad = new System.Windows.Forms.RadioButton();
-            this.textBoxAnoFundacaoCad = new System.Windows.Forms.TextBox();
             this.registroCad = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.dataFundacao = new System.Windows.Forms.Label();
             this.telefoneCad = new System.Windows.Forms.Label();
             this.nomeCad = new System.Windows.Forms.Label();
             this.textBoxNomeCad = new System.Windows.Forms.TextBox();
@@ -78,8 +80,8 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.textBoxEnderecoRua = new System.Windows.Forms.TextBox();
-            this.dataSetCliente = new CadastroCliente.DataSetCliente();
             this.appStylistRuntime1 = new Infragistics.Win.AppStyling.Runtime.AppStylistRuntime(this.components);
+            this.dataSetCliente = new CadastroCliente.DataSetCliente();
             this.dataSetClienteEndereco = new CadastroCliente.DataSetClienteEndereco();
             this.clientesTableAdapter = new CadastroCliente.DataSetClienteTableAdapters.clientesTableAdapter();
             this.enderecosTableAdapter = new CadastroCliente.DataSetClienteTableAdapters.enderecosTableAdapter();
@@ -104,7 +106,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Margin = new System.Windows.Forms.Padding(10, 0, 2, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(860, 25);
+            this.menuStrip1.Size = new System.Drawing.Size(683, 25);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -171,7 +173,7 @@
             this.tabControlClientes.Location = new System.Drawing.Point(0, 25);
             this.tabControlClientes.Name = "tabControlClientes";
             this.tabControlClientes.SelectedIndex = 0;
-            this.tabControlClientes.Size = new System.Drawing.Size(860, 577);
+            this.tabControlClientes.Size = new System.Drawing.Size(683, 646);
             this.tabControlClientes.TabIndex = 6;
             this.tabControlClientes.Tag = "Clientes";
             this.tabControlClientes.SelectedIndexChanged += new System.EventHandler(this.TabControlClientes_SelectedIndexChanged);
@@ -187,13 +189,15 @@
             this.tabPageClientes.Margin = new System.Windows.Forms.Padding(0);
             this.tabPageClientes.Name = "tabPageClientes";
             this.tabPageClientes.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageClientes.Size = new System.Drawing.Size(852, 539);
+            this.tabPageClientes.Size = new System.Drawing.Size(675, 608);
             this.tabPageClientes.TabIndex = 0;
             this.tabPageClientes.Text = "Cliente";
             // 
             // dataGridViewClientes
             // 
             this.dataGridViewClientes.AllowUserToAddRows = false;
+            this.dataGridViewClientes.AllowUserToDeleteRows = false;
+            this.dataGridViewClientes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.dataGridViewClientes.BackgroundColor = System.Drawing.Color.White;
             this.dataGridViewClientes.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridViewClientes.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
@@ -202,7 +206,7 @@
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.MediumSeaGreen;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewClientes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
@@ -210,15 +214,18 @@
             this.dataGridViewClientes.Cursor = System.Windows.Forms.Cursors.Hand;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(20, 2, 15, 2);
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.MediumSeaGreen;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewClientes.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridViewClientes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewClientes.Dock = System.Windows.Forms.DockStyle.Top;
             this.dataGridViewClientes.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dataGridViewClientes.GridColor = System.Drawing.Color.White;
             this.dataGridViewClientes.Location = new System.Drawing.Point(3, 3);
+            this.dataGridViewClientes.Margin = new System.Windows.Forms.Padding(6, 10, 6, 6);
             this.dataGridViewClientes.Name = "dataGridViewClientes";
             this.dataGridViewClientes.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.dataGridViewClientes.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
@@ -231,7 +238,7 @@
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewClientes.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridViewClientes.RowHeadersVisible = false;
-            this.dataGridViewClientes.RowHeadersWidth = 25;
+            this.dataGridViewClientes.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             this.dataGridViewClientes.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridViewClientes.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
@@ -240,9 +247,10 @@
             this.dataGridViewClientes.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.MediumSeaGreen;
             this.dataGridViewClientes.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White;
             this.dataGridViewClientes.RowTemplate.DefaultCellStyle.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewClientes.RowTemplate.Height = 30;
             this.dataGridViewClientes.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dataGridViewClientes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewClientes.Size = new System.Drawing.Size(846, 306);
+            this.dataGridViewClientes.Size = new System.Drawing.Size(669, 375);
             this.dataGridViewClientes.TabIndex = 8;
             this.dataGridViewClientes.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewClientes_CellContentClick);
             this.dataGridViewClientes.CellMouseLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewClientes_CellMouseLeave);
@@ -251,6 +259,7 @@
             // groupBox2
             // 
             this.groupBox2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.groupBox2.Controls.Add(this.textBoxAnoFundacaoCad);
             this.groupBox2.Controls.Add(this.buttonClienteConfirmarSalvar);
             this.groupBox2.Controls.Add(this.buttonClienteExluir);
             this.groupBox2.Controls.Add(this.buttonClienteEditar);
@@ -259,21 +268,29 @@
             this.groupBox2.Controls.Add(this.maskedTextBoxRegistroCad);
             this.groupBox2.Controls.Add(this.radioButtonPessoaJuridicaCad);
             this.groupBox2.Controls.Add(this.radioButtonPessoaFisicaCad);
-            this.groupBox2.Controls.Add(this.textBoxAnoFundacaoCad);
             this.groupBox2.Controls.Add(this.registroCad);
-            this.groupBox2.Controls.Add(this.label5);
+            this.groupBox2.Controls.Add(this.dataFundacao);
             this.groupBox2.Controls.Add(this.telefoneCad);
             this.groupBox2.Controls.Add(this.nomeCad);
             this.groupBox2.Controls.Add(this.textBoxNomeCad);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.groupBox2.Location = new System.Drawing.Point(3, 309);
+            this.groupBox2.Location = new System.Drawing.Point(3, 378);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(846, 227);
+            this.groupBox2.Size = new System.Drawing.Size(669, 227);
             this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Dados do Cliente";
+            // 
+            // textBoxAnoFundacaoCad
+            // 
+            this.textBoxAnoFundacaoCad.Location = new System.Drawing.Point(510, 62);
+            this.textBoxAnoFundacaoCad.Mask = "00/00/0000";
+            this.textBoxAnoFundacaoCad.Name = "textBoxAnoFundacaoCad";
+            this.textBoxAnoFundacaoCad.Size = new System.Drawing.Size(100, 23);
+            this.textBoxAnoFundacaoCad.TabIndex = 1;
+            this.textBoxAnoFundacaoCad.ValidatingType = typeof(System.DateTime);
             // 
             // buttonClienteConfirmarSalvar
             // 
@@ -281,7 +298,7 @@
             this.buttonClienteConfirmarSalvar.FlatAppearance.BorderSize = 0;
             this.buttonClienteConfirmarSalvar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonClienteConfirmarSalvar.Image = ((System.Drawing.Image)(resources.GetObject("buttonClienteConfirmarSalvar.Image")));
-            this.buttonClienteConfirmarSalvar.Location = new System.Drawing.Point(407, 153);
+            this.buttonClienteConfirmarSalvar.Location = new System.Drawing.Point(550, 148);
             this.buttonClienteConfirmarSalvar.Name = "buttonClienteConfirmarSalvar";
             this.buttonClienteConfirmarSalvar.Size = new System.Drawing.Size(60, 57);
             this.buttonClienteConfirmarSalvar.TabIndex = 4;
@@ -296,7 +313,7 @@
             this.buttonClienteExluir.FlatAppearance.BorderSize = 0;
             this.buttonClienteExluir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonClienteExluir.Image = ((System.Drawing.Image)(resources.GetObject("buttonClienteExluir.Image")));
-            this.buttonClienteExluir.Location = new System.Drawing.Point(98, 24);
+            this.buttonClienteExluir.Location = new System.Drawing.Point(98, 22);
             this.buttonClienteExluir.Name = "buttonClienteExluir";
             this.buttonClienteExluir.Size = new System.Drawing.Size(35, 34);
             this.buttonClienteExluir.TabIndex = 44;
@@ -308,7 +325,7 @@
             this.buttonClienteEditar.FlatAppearance.BorderSize = 0;
             this.buttonClienteEditar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonClienteEditar.Image = ((System.Drawing.Image)(resources.GetObject("buttonClienteEditar.Image")));
-            this.buttonClienteEditar.Location = new System.Drawing.Point(52, 24);
+            this.buttonClienteEditar.Location = new System.Drawing.Point(52, 22);
             this.buttonClienteEditar.Name = "buttonClienteEditar";
             this.buttonClienteEditar.Size = new System.Drawing.Size(54, 34);
             this.buttonClienteEditar.TabIndex = 43;
@@ -321,7 +338,7 @@
             this.buttonClienteSalvar.FlatAppearance.BorderSize = 0;
             this.buttonClienteSalvar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonClienteSalvar.Image = ((System.Drawing.Image)(resources.GetObject("buttonClienteSalvar.Image")));
-            this.buttonClienteSalvar.Location = new System.Drawing.Point(16, 24);
+            this.buttonClienteSalvar.Location = new System.Drawing.Point(16, 22);
             this.buttonClienteSalvar.Name = "buttonClienteSalvar";
             this.buttonClienteSalvar.Size = new System.Drawing.Size(46, 34);
             this.buttonClienteSalvar.TabIndex = 42;
@@ -330,25 +347,25 @@
             // 
             // maskedTextBoxTelefoneCad
             // 
-            this.maskedTextBoxTelefoneCad.Location = new System.Drawing.Point(346, 106);
+            this.maskedTextBoxTelefoneCad.Location = new System.Drawing.Point(479, 101);
             this.maskedTextBoxTelefoneCad.Mask = "(00) 00000-0000";
             this.maskedTextBoxTelefoneCad.Name = "maskedTextBoxTelefoneCad";
-            this.maskedTextBoxTelefoneCad.Size = new System.Drawing.Size(121, 23);
+            this.maskedTextBoxTelefoneCad.Size = new System.Drawing.Size(131, 23);
             this.maskedTextBoxTelefoneCad.TabIndex = 3;
             // 
             // maskedTextBoxRegistroCad
             // 
-            this.maskedTextBoxRegistroCad.Location = new System.Drawing.Point(83, 106);
+            this.maskedTextBoxRegistroCad.Location = new System.Drawing.Point(107, 101);
             this.maskedTextBoxRegistroCad.Mask = "000.000.000-00";
             this.maskedTextBoxRegistroCad.Name = "maskedTextBoxRegistroCad";
-            this.maskedTextBoxRegistroCad.Size = new System.Drawing.Size(180, 23);
+            this.maskedTextBoxRegistroCad.Size = new System.Drawing.Size(232, 23);
             this.maskedTextBoxRegistroCad.TabIndex = 2;
             // 
             // radioButtonPessoaJuridicaCad
             // 
             this.radioButtonPessoaJuridicaCad.AutoSize = true;
             this.radioButtonPessoaJuridicaCad.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.radioButtonPessoaJuridicaCad.Location = new System.Drawing.Point(83, 171);
+            this.radioButtonPessoaJuridicaCad.Location = new System.Drawing.Point(107, 166);
             this.radioButtonPessoaJuridicaCad.Name = "radioButtonPessoaJuridicaCad";
             this.radioButtonPessoaJuridicaCad.Size = new System.Drawing.Size(126, 21);
             this.radioButtonPessoaJuridicaCad.TabIndex = 12;
@@ -361,7 +378,7 @@
             this.radioButtonPessoaFisicaCad.AutoSize = true;
             this.radioButtonPessoaFisicaCad.Checked = true;
             this.radioButtonPessoaFisicaCad.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.radioButtonPessoaFisicaCad.Location = new System.Drawing.Point(83, 144);
+            this.radioButtonPessoaFisicaCad.Location = new System.Drawing.Point(107, 139);
             this.radioButtonPessoaFisicaCad.Name = "radioButtonPessoaFisicaCad";
             this.radioButtonPessoaFisicaCad.Size = new System.Drawing.Size(113, 21);
             this.radioButtonPessoaFisicaCad.TabIndex = 11;
@@ -370,41 +387,33 @@
             this.radioButtonPessoaFisicaCad.UseVisualStyleBackColor = true;
             this.radioButtonPessoaFisicaCad.CheckedChanged += new System.EventHandler(this.RadioButtonPessoaFisicaCad_CheckedChanged);
             // 
-            // textBoxAnoFundacaoCad
-            // 
-            this.textBoxAnoFundacaoCad.Location = new System.Drawing.Point(411, 67);
-            this.textBoxAnoFundacaoCad.MaxLength = 4;
-            this.textBoxAnoFundacaoCad.Name = "textBoxAnoFundacaoCad";
-            this.textBoxAnoFundacaoCad.Size = new System.Drawing.Size(56, 23);
-            this.textBoxAnoFundacaoCad.TabIndex = 1;
-            // 
             // registroCad
             // 
             this.registroCad.AutoSize = true;
             this.registroCad.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.registroCad.Location = new System.Drawing.Point(16, 106);
+            this.registroCad.Location = new System.Drawing.Point(40, 101);
             this.registroCad.Name = "registroCad";
             this.registroCad.Size = new System.Drawing.Size(61, 17);
             this.registroCad.TabIndex = 5;
             this.registroCad.Text = "Registro";
             this.registroCad.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label5
+            // dataFundacao
             // 
-            this.label5.AutoSize = true;
-            this.label5.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label5.Location = new System.Drawing.Point(305, 70);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(100, 17);
-            this.label5.TabIndex = 4;
-            this.label5.Text = "Ano Fundação";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.dataFundacao.AutoSize = true;
+            this.dataFundacao.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.dataFundacao.Location = new System.Drawing.Point(399, 65);
+            this.dataFundacao.Name = "dataFundacao";
+            this.dataFundacao.Size = new System.Drawing.Size(105, 17);
+            this.dataFundacao.TabIndex = 4;
+            this.dataFundacao.Text = "Data Fundação";
+            this.dataFundacao.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // telefoneCad
             // 
             this.telefoneCad.AutoSize = true;
             this.telefoneCad.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.telefoneCad.Location = new System.Drawing.Point(276, 109);
+            this.telefoneCad.Location = new System.Drawing.Point(409, 104);
             this.telefoneCad.Name = "telefoneCad";
             this.telefoneCad.Size = new System.Drawing.Size(64, 17);
             this.telefoneCad.TabIndex = 3;
@@ -415,7 +424,7 @@
             // 
             this.nomeCad.AutoSize = true;
             this.nomeCad.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.nomeCad.Location = new System.Drawing.Point(32, 70);
+            this.nomeCad.Location = new System.Drawing.Point(56, 65);
             this.nomeCad.Name = "nomeCad";
             this.nomeCad.Size = new System.Drawing.Size(45, 17);
             this.nomeCad.TabIndex = 1;
@@ -424,10 +433,10 @@
             // 
             // textBoxNomeCad
             // 
-            this.textBoxNomeCad.Location = new System.Drawing.Point(83, 67);
+            this.textBoxNomeCad.Location = new System.Drawing.Point(107, 62);
             this.textBoxNomeCad.MaxLength = 50;
             this.textBoxNomeCad.Name = "textBoxNomeCad";
-            this.textBoxNomeCad.Size = new System.Drawing.Size(208, 23);
+            this.textBoxNomeCad.Size = new System.Drawing.Size(274, 23);
             this.textBoxNomeCad.TabIndex = 0;
             // 
             // tabPageEnderecos
@@ -438,40 +447,67 @@
             this.tabPageEnderecos.Location = new System.Drawing.Point(4, 34);
             this.tabPageEnderecos.Name = "tabPageEnderecos";
             this.tabPageEnderecos.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageEnderecos.Size = new System.Drawing.Size(639, 427);
+            this.tabPageEnderecos.Size = new System.Drawing.Size(675, 608);
             this.tabPageEnderecos.TabIndex = 1;
             this.tabPageEnderecos.Text = "Endereços";
             // 
             // dataGridViewEnderecos
             // 
             this.dataGridViewEnderecos.AllowUserToAddRows = false;
+            this.dataGridViewEnderecos.AllowUserToDeleteRows = false;
+            this.dataGridViewEnderecos.AllowUserToResizeColumns = false;
+            this.dataGridViewEnderecos.AllowUserToResizeRows = false;
+            this.dataGridViewEnderecos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.dataGridViewEnderecos.BackgroundColor = System.Drawing.Color.White;
             this.dataGridViewEnderecos.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridViewEnderecos.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.dataGridViewEnderecos.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            this.dataGridViewEnderecos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewEnderecos.Cursor = System.Windows.Forms.Cursors.Hand;
             dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.Padding = new System.Windows.Forms.Padding(22, 2, 22, 2);
             dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.MediumSeaGreen;
             dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewEnderecos.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewEnderecos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            this.dataGridViewEnderecos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewEnderecos.Cursor = System.Windows.Forms.Cursors.Hand;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.MediumSeaGreen;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewEnderecos.DefaultCellStyle = dataGridViewCellStyle6;
             this.dataGridViewEnderecos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewEnderecos.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dataGridViewEnderecos.Location = new System.Drawing.Point(3, 3);
             this.dataGridViewEnderecos.Name = "dataGridViewEnderecos";
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.Padding = new System.Windows.Forms.Padding(15, 2, 15, 2);
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.MediumSeaGreen;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewEnderecos.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.dataGridViewEnderecos.RowHeadersVisible = false;
+            this.dataGridViewEnderecos.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
             this.dataGridViewEnderecos.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             this.dataGridViewEnderecos.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dataGridViewEnderecos.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.Black;
+            this.dataGridViewEnderecos.RowTemplate.DefaultCellStyle.Padding = new System.Windows.Forms.Padding(10, 2, 10, 2);
             this.dataGridViewEnderecos.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.Color.MediumSeaGreen;
             this.dataGridViewEnderecos.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White;
             this.dataGridViewEnderecos.RowTemplate.DefaultCellStyle.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewEnderecos.RowTemplate.Height = 30;
+            this.dataGridViewEnderecos.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewEnderecos.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dataGridViewEnderecos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewEnderecos.Size = new System.Drawing.Size(633, 194);
+            this.dataGridViewEnderecos.Size = new System.Drawing.Size(669, 375);
             this.dataGridViewEnderecos.TabIndex = 5;
             this.dataGridViewEnderecos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewEnderecos_CellContentClick);
             this.dataGridViewEnderecos.CellMouseLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewEnderecos_CellMouseLeave);
@@ -497,9 +533,9 @@
             this.groupBoxEnderecos.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.groupBoxEnderecos.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBoxEnderecos.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.groupBoxEnderecos.Location = new System.Drawing.Point(3, 197);
+            this.groupBoxEnderecos.Location = new System.Drawing.Point(3, 378);
             this.groupBoxEnderecos.Name = "groupBoxEnderecos";
-            this.groupBoxEnderecos.Size = new System.Drawing.Size(633, 227);
+            this.groupBoxEnderecos.Size = new System.Drawing.Size(669, 227);
             this.groupBoxEnderecos.TabIndex = 4;
             this.groupBoxEnderecos.TabStop = false;
             this.groupBoxEnderecos.Text = "Endereços";
@@ -535,7 +571,7 @@
             "SP",
             "SE",
             "TO"});
-            this.textBoxEnderecoUF.Location = new System.Drawing.Point(84, 150);
+            this.textBoxEnderecoUF.Location = new System.Drawing.Point(115, 161);
             this.textBoxEnderecoUF.Name = "textBoxEnderecoUF";
             this.textBoxEnderecoUF.Size = new System.Drawing.Size(121, 24);
             this.textBoxEnderecoUF.TabIndex = 33;
@@ -546,7 +582,7 @@
             this.buttonEnderecoConfirmarSalvar.FlatAppearance.BorderSize = 0;
             this.buttonEnderecoConfirmarSalvar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonEnderecoConfirmarSalvar.Image = ((System.Drawing.Image)(resources.GetObject("buttonEnderecoConfirmarSalvar.Image")));
-            this.buttonEnderecoConfirmarSalvar.Location = new System.Drawing.Point(410, 150);
+            this.buttonEnderecoConfirmarSalvar.Location = new System.Drawing.Point(513, 144);
             this.buttonEnderecoConfirmarSalvar.Name = "buttonEnderecoConfirmarSalvar";
             this.buttonEnderecoConfirmarSalvar.Size = new System.Drawing.Size(60, 57);
             this.buttonEnderecoConfirmarSalvar.TabIndex = 34;
@@ -596,7 +632,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(52, 153);
+            this.label3.Location = new System.Drawing.Point(83, 164);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(26, 17);
             this.label3.TabIndex = 37;
@@ -604,15 +640,15 @@
             // 
             // textBoxEnderecoCidade
             // 
-            this.textBoxEnderecoCidade.Location = new System.Drawing.Point(84, 110);
+            this.textBoxEnderecoCidade.Location = new System.Drawing.Point(115, 110);
             this.textBoxEnderecoCidade.Name = "textBoxEnderecoCidade";
-            this.textBoxEnderecoCidade.Size = new System.Drawing.Size(182, 23);
+            this.textBoxEnderecoCidade.Size = new System.Drawing.Size(233, 23);
             this.textBoxEnderecoCidade.TabIndex = 31;
             // 
             // EnderecoCidade
             // 
             this.EnderecoCidade.AutoSize = true;
-            this.EnderecoCidade.Location = new System.Drawing.Point(26, 113);
+            this.EnderecoCidade.Location = new System.Drawing.Point(57, 113);
             this.EnderecoCidade.Name = "EnderecoCidade";
             this.EnderecoCidade.Size = new System.Drawing.Size(52, 17);
             this.EnderecoCidade.TabIndex = 35;
@@ -620,7 +656,7 @@
             // 
             // textBoxEnderecoBairro
             // 
-            this.textBoxEnderecoBairro.Location = new System.Drawing.Point(330, 107);
+            this.textBoxEnderecoBairro.Location = new System.Drawing.Point(433, 107);
             this.textBoxEnderecoBairro.Name = "textBoxEnderecoBairro";
             this.textBoxEnderecoBairro.Size = new System.Drawing.Size(140, 23);
             this.textBoxEnderecoBairro.TabIndex = 32;
@@ -628,7 +664,7 @@
             // EnderecoBairro
             // 
             this.EnderecoBairro.AutoSize = true;
-            this.EnderecoBairro.Location = new System.Drawing.Point(278, 110);
+            this.EnderecoBairro.Location = new System.Drawing.Point(381, 110);
             this.EnderecoBairro.Name = "EnderecoBairro";
             this.EnderecoBairro.Size = new System.Drawing.Size(46, 17);
             this.EnderecoBairro.TabIndex = 33;
@@ -636,7 +672,7 @@
             // 
             // textBoxEnderecoNumero
             // 
-            this.textBoxEnderecoNumero.Location = new System.Drawing.Point(384, 65);
+            this.textBoxEnderecoNumero.Location = new System.Drawing.Point(487, 65);
             this.textBoxEnderecoNumero.Name = "textBoxEnderecoNumero";
             this.textBoxEnderecoNumero.Size = new System.Drawing.Size(86, 23);
             this.textBoxEnderecoNumero.TabIndex = 30;
@@ -644,7 +680,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(320, 68);
+            this.label9.Location = new System.Drawing.Point(423, 68);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(58, 17);
             this.label9.TabIndex = 31;
@@ -653,7 +689,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(44, 65);
+            this.label10.Location = new System.Drawing.Point(75, 65);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(34, 17);
             this.label10.TabIndex = 30;
@@ -661,9 +697,9 @@
             // 
             // textBoxEnderecoRua
             // 
-            this.textBoxEnderecoRua.Location = new System.Drawing.Point(84, 65);
+            this.textBoxEnderecoRua.Location = new System.Drawing.Point(115, 65);
             this.textBoxEnderecoRua.Name = "textBoxEnderecoRua";
-            this.textBoxEnderecoRua.Size = new System.Drawing.Size(210, 23);
+            this.textBoxEnderecoRua.Size = new System.Drawing.Size(273, 23);
             this.textBoxEnderecoRua.TabIndex = 29;
             // 
             // dataSetCliente
@@ -690,7 +726,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.Info;
-            this.ClientSize = new System.Drawing.Size(860, 602);
+            this.ClientSize = new System.Drawing.Size(683, 671);
             this.Controls.Add(this.tabControlClientes);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -698,8 +734,8 @@
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.TransparencyKey = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.Resize += new System.EventHandler(this.Form1_Resize);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.tabControlClientes.ResumeLayout(false);
@@ -734,9 +770,8 @@
         private System.Windows.Forms.MaskedTextBox maskedTextBoxRegistroCad;
         private System.Windows.Forms.RadioButton radioButtonPessoaJuridicaCad;
         private System.Windows.Forms.RadioButton radioButtonPessoaFisicaCad;
-        private System.Windows.Forms.TextBox textBoxAnoFundacaoCad;
         private System.Windows.Forms.Label registroCad;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label dataFundacao;
         private System.Windows.Forms.Label telefoneCad;
         private System.Windows.Forms.Label nomeCad;
         private System.Windows.Forms.TextBox textBoxNomeCad;
@@ -767,6 +802,7 @@
         private DataSetClienteTableAdapters.enderecosTableAdapter enderecosTableAdapter;
         private System.Windows.Forms.DataGridView dataGridViewClientes;
         private System.Windows.Forms.DataGridView dataGridViewEnderecos;
+        private System.Windows.Forms.MaskedTextBox textBoxAnoFundacaoCad;
     }
 }
 
