@@ -7,107 +7,102 @@ namespace CadastroCliente.DAO
 {
     class EnderecoDAO
     {
-        static string connectionString = "Data Source=dbserver-dev;Initial Catalog=treinamento;User ID=treinamento;Password=treinamento";
 
-        public static DataTable CarregarEnderecos(int clienteId)
+        public static DataTable CarregarEnderecos(int? cd_cliente = null)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            string query = "SELECT cd_endereco AS Codigo, nm_rua AS Rua, numero, nm_bairro AS Bairro, nm_cidade AS Cidade, nm_uf AS Estado FROM endereco";
+            SqlParameter[] parameters = null;
+            if (cd_cliente.HasValue)
             {
-                string queryEnderecos = "SELECT id_endereco AS Codigo, rua AS Rua, numero As Numero, bairro AS Bairro, cidade AS Cidade, uf AS UF FROM enderecos WHERE cliente_id = @clienteId";
-
-                SqlCommand command = new SqlCommand(queryEnderecos, connection);
-                command.Parameters.AddWithValue("@clienteId", clienteId);
-
-                try
+                query += " WHERE cd_cliente = @cd_cliente";
+                parameters = new SqlParameter[]
                 {
-                    connection.Open();
-                    SqlDataAdapter dataAdapter = new SqlDataAdapter(command);
-                    DataTable dataTable = new DataTable();
-                    dataAdapter.Fill(dataTable);
-                    return dataTable;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Erro ao carregar endereços: " + ex.Message);
-                    return new DataTable();
-                }
+                new SqlParameter("@cd_cliente", cd_cliente.Value)
+                };
+            }
+
+            try
+            {
+                DataSet ds = DatabaseConnection.ExecuteQuery(query, parameters);
+                return ds.Tables[0];
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao carregar endereços: " + ex.Message);
+                return new DataTable();
             }
         }
 
-        public static void IncluirEndereco(int clienteId, string rua, string numero, string bairro, string cidade, string uf)
+        public static void IncluirEndereco(int cd_cliente, string rua, int numero, string bairro, string cidade, string uf)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            string queryIncluirEndereco = "INSERT INTO endereco (nm_rua, numero, nm_bairro, nm_cidade, nm_uf, cd_cliente) VALUES (@rua, @numero, @bairro, @cidade, @uf, @cd_cliente)";
+            SqlParameter[] parameters = new SqlParameter[]
             {
-                string query = "INSERT INTO Enderecos (rua, numero, bairro, cidade, uf, cliente_id) VALUES (@rua, @numero, @bairro, @cidade, @uf, @cliente_id)";
+                new SqlParameter("@rua", rua),
+                new SqlParameter("@numero", numero),
+                new SqlParameter("@bairro", bairro),
+                new SqlParameter("@cidade", cidade),
+                new SqlParameter("@uf", uf),
+                new SqlParameter("@cd_cliente", cd_cliente)
+            };
 
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@rua", rua);
-                command.Parameters.AddWithValue("@numero", numero);
-                command.Parameters.AddWithValue("@bairro", bairro);
-                command.Parameters.AddWithValue("@cidade", cidade);
-                command.Parameters.AddWithValue("@uf", uf);
-                command.Parameters.AddWithValue("@cliente_id", clienteId);
-
-                try
-                {
-                    connection.Open();
-                    command.ExecuteNonQuery();
-                    MessageBox.Show("Endereço criado com sucesso!");
-                    //CarregarEnderecos(clienteId);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Erro ao criar endereço: " + ex.Message);
-                }
+            try
+            {
+                DatabaseConnection.ExecuteNonQuery(queryIncluirEndereco, parameters);
+                MessageBox.Show("Endereço criado com sucesso!");
             }
+            catch (Exception e)
+            {
+                MessageBox.Show("Erro ao incluir cliente: " + e);
+            }
+
+
         }
 
-        public static void AtualizarEndereco(int id, string rua, string numero, string bairro, string cidade, string uf)
+        public static void AtualizarEndereco(int id, string rua, int numero, string bairro, string cidade, string uf)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            string queryAtualizarEndereco = "UPDATE endereco SET nm_rua = @nm_rua, numero = @numero, nm_bairro = @nm_bairro, nm_cidade = @nm_cidade, nm_uf = @nm_uf WHERE cd_endereco = @cd_endereco";
+
+            SqlParameter[] parameters = new SqlParameter[]
             {
-                string query = "UPDATE Enderecos SET rua = @rua, numero = @numero, bairro = @bairro, cidade = @cidade, uf = @uf WHERE id_endereco = @id";
+                new SqlParameter("@nm_rua", rua),
+                new SqlParameter("@numero", numero),
+                new SqlParameter("@nm_bairro", bairro),
+                new SqlParameter("@nm_cidade", cidade),
+                new SqlParameter("@nm_uf", uf),
+                new SqlParameter("@cd_endereco", id),
+            };
 
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@rua", rua);
-                command.Parameters.AddWithValue("@numero", numero);
-                command.Parameters.AddWithValue("@bairro", bairro);
-                command.Parameters.AddWithValue("@cidade", cidade);
-                command.Parameters.AddWithValue("@uf", uf);
-                command.Parameters.AddWithValue("@id", id);
-
-                try
-                {
-                    connection.Open();
-                    command.ExecuteNonQuery();
-                    MessageBox.Show("Endereço atualizado com sucesso!");
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Erro ao atualizar endereço: " + ex.Message);
-                }
+            try
+            {
+                DatabaseConnection.ExecuteNonQuery(queryAtualizarEndereco, parameters);
+                MessageBox.Show("Endereço atualizado com sucesso!");
             }
+            catch (Exception e)
+            {
+                MessageBox.Show("Erro ao atualizar cliente: " + e);
+            }
+
         }
 
         public static void ExcluirEndereco(int id)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            string queryExcluirEndereco = $"DELETE FROM endereco WHERE cd_endereco = {id}";
+            SqlParameter[] parameters = new SqlParameter[]
             {
-                string query = $"DELETE FROM Enderecos WHERE id_endereco = {id}";
+                new SqlParameter("@cd_endereco", id)
+            };
 
-                SqlCommand command = new SqlCommand(query, connection);
-
-                try
-                {
-                    connection.Open();
-                    command.ExecuteNonQuery();
-                    MessageBox.Show("Endereço excluído com sucesso!");
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Erro ao excluir endereço: " + ex.Message);
-                }
+            try
+            {
+                DatabaseConnection.ExecuteNonQuery(queryExcluirEndereco, parameters);
+                MessageBox.Show("Endereço excluído com sucesso!");
             }
+            catch (Exception e)
+            {
+                MessageBox.Show("Erro ao excluir endereço: " + e);
+            }
+
         }
     }
 }

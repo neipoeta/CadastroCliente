@@ -106,7 +106,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Margin = new System.Windows.Forms.Padding(10, 0, 2, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(683, 25);
+            this.menuStrip1.Size = new System.Drawing.Size(729, 25);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -173,7 +173,7 @@
             this.tabControlClientes.Location = new System.Drawing.Point(0, 25);
             this.tabControlClientes.Name = "tabControlClientes";
             this.tabControlClientes.SelectedIndex = 0;
-            this.tabControlClientes.Size = new System.Drawing.Size(683, 646);
+            this.tabControlClientes.Size = new System.Drawing.Size(729, 646);
             this.tabControlClientes.TabIndex = 6;
             this.tabControlClientes.Tag = "Clientes";
             this.tabControlClientes.SelectedIndexChanged += new System.EventHandler(this.TabControlClientes_SelectedIndexChanged);
@@ -188,8 +188,8 @@
             this.tabPageClientes.Location = new System.Drawing.Point(4, 34);
             this.tabPageClientes.Margin = new System.Windows.Forms.Padding(0);
             this.tabPageClientes.Name = "tabPageClientes";
-            this.tabPageClientes.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageClientes.Size = new System.Drawing.Size(675, 608);
+            this.tabPageClientes.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPageClientes.Size = new System.Drawing.Size(721, 608);
             this.tabPageClientes.TabIndex = 0;
             this.tabPageClientes.Text = "Cliente";
             // 
@@ -250,7 +250,7 @@
             this.dataGridViewClientes.RowTemplate.Height = 30;
             this.dataGridViewClientes.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dataGridViewClientes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewClientes.Size = new System.Drawing.Size(669, 375);
+            this.dataGridViewClientes.Size = new System.Drawing.Size(715, 375);
             this.dataGridViewClientes.TabIndex = 8;
             this.dataGridViewClientes.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewClientes_CellContentClick);
             this.dataGridViewClientes.CellMouseLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewClientes_CellMouseLeave);
@@ -278,14 +278,14 @@
             this.groupBox2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.groupBox2.Location = new System.Drawing.Point(3, 378);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(669, 227);
+            this.groupBox2.Size = new System.Drawing.Size(715, 227);
             this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Dados do Cliente";
             // 
             // textBoxAnoFundacaoCad
             // 
-            this.textBoxAnoFundacaoCad.Location = new System.Drawing.Point(510, 62);
+            this.textBoxAnoFundacaoCad.Location = new System.Drawing.Point(542, 72);
             this.textBoxAnoFundacaoCad.Mask = "00/00/0000";
             this.textBoxAnoFundacaoCad.Name = "textBoxAnoFundacaoCad";
             this.textBoxAnoFundacaoCad.Size = new System.Drawing.Size(100, 23);
@@ -298,7 +298,7 @@
             this.buttonClienteConfirmarSalvar.FlatAppearance.BorderSize = 0;
             this.buttonClienteConfirmarSalvar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonClienteConfirmarSalvar.Image = ((System.Drawing.Image)(resources.GetObject("buttonClienteConfirmarSalvar.Image")));
-            this.buttonClienteConfirmarSalvar.Location = new System.Drawing.Point(550, 148);
+            this.buttonClienteConfirmarSalvar.Location = new System.Drawing.Point(582, 158);
             this.buttonClienteConfirmarSalvar.Name = "buttonClienteConfirmarSalvar";
             this.buttonClienteConfirmarSalvar.Size = new System.Drawing.Size(60, 57);
             this.buttonClienteConfirmarSalvar.TabIndex = 4;
@@ -313,7 +313,7 @@
             this.buttonClienteExluir.FlatAppearance.BorderSize = 0;
             this.buttonClienteExluir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonClienteExluir.Image = ((System.Drawing.Image)(resources.GetObject("buttonClienteExluir.Image")));
-            this.buttonClienteExluir.Location = new System.Drawing.Point(98, 22);
+            this.buttonClienteExluir.Location = new System.Drawing.Point(130, 32);
             this.buttonClienteExluir.Name = "buttonClienteExluir";
             this.buttonClienteExluir.Size = new System.Drawing.Size(35, 34);
             this.buttonClienteExluir.TabIndex = 44;
@@ -325,7 +325,7 @@
             this.buttonClienteEditar.FlatAppearance.BorderSize = 0;
             this.buttonClienteEditar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonClienteEditar.Image = ((System.Drawing.Image)(resources.GetObject("buttonClienteEditar.Image")));
-            this.buttonClienteEditar.Location = new System.Drawing.Point(52, 22);
+            this.buttonClienteEditar.Location = new System.Drawing.Point(84, 32);
             this.buttonClienteEditar.Name = "buttonClienteEditar";
             this.buttonClienteEditar.Size = new System.Drawing.Size(54, 34);
             this.buttonClienteEditar.TabIndex = 43;
@@ -338,7 +338,7 @@
             this.buttonClienteSalvar.FlatAppearance.BorderSize = 0;
             this.buttonClienteSalvar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonClienteSalvar.Image = ((System.Drawing.Image)(resources.GetObject("buttonClienteSalvar.Image")));
-            this.buttonClienteSalvar.Location = new System.Drawing.Point(16, 22);
+            this.buttonClienteSalvar.Location = new System.Drawing.Point(48, 32);
             this.buttonClienteSalvar.Name = "buttonClienteSalvar";
             this.buttonClienteSalvar.Size = new System.Drawing.Size(46, 34);
             this.buttonClienteSalvar.TabIndex = 42;
@@ -347,7 +347,7 @@
             // 
             // maskedTextBoxTelefoneCad
             // 
-            this.maskedTextBoxTelefoneCad.Location = new System.Drawing.Point(479, 101);
+            this.maskedTextBoxTelefoneCad.Location = new System.Drawing.Point(511, 111);
             this.maskedTextBoxTelefoneCad.Mask = "(00) 00000-0000";
             this.maskedTextBoxTelefoneCad.Name = "maskedTextBoxTelefoneCad";
             this.maskedTextBoxTelefoneCad.Size = new System.Drawing.Size(131, 23);
@@ -355,7 +355,7 @@
             // 
             // maskedTextBoxRegistroCad
             // 
-            this.maskedTextBoxRegistroCad.Location = new System.Drawing.Point(107, 101);
+            this.maskedTextBoxRegistroCad.Location = new System.Drawing.Point(139, 111);
             this.maskedTextBoxRegistroCad.Mask = "000.000.000-00";
             this.maskedTextBoxRegistroCad.Name = "maskedTextBoxRegistroCad";
             this.maskedTextBoxRegistroCad.Size = new System.Drawing.Size(232, 23);
@@ -365,7 +365,7 @@
             // 
             this.radioButtonPessoaJuridicaCad.AutoSize = true;
             this.radioButtonPessoaJuridicaCad.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.radioButtonPessoaJuridicaCad.Location = new System.Drawing.Point(107, 166);
+            this.radioButtonPessoaJuridicaCad.Location = new System.Drawing.Point(139, 176);
             this.radioButtonPessoaJuridicaCad.Name = "radioButtonPessoaJuridicaCad";
             this.radioButtonPessoaJuridicaCad.Size = new System.Drawing.Size(126, 21);
             this.radioButtonPessoaJuridicaCad.TabIndex = 12;
@@ -378,7 +378,7 @@
             this.radioButtonPessoaFisicaCad.AutoSize = true;
             this.radioButtonPessoaFisicaCad.Checked = true;
             this.radioButtonPessoaFisicaCad.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.radioButtonPessoaFisicaCad.Location = new System.Drawing.Point(107, 139);
+            this.radioButtonPessoaFisicaCad.Location = new System.Drawing.Point(139, 149);
             this.radioButtonPessoaFisicaCad.Name = "radioButtonPessoaFisicaCad";
             this.radioButtonPessoaFisicaCad.Size = new System.Drawing.Size(113, 21);
             this.radioButtonPessoaFisicaCad.TabIndex = 11;
@@ -391,7 +391,7 @@
             // 
             this.registroCad.AutoSize = true;
             this.registroCad.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.registroCad.Location = new System.Drawing.Point(40, 101);
+            this.registroCad.Location = new System.Drawing.Point(72, 111);
             this.registroCad.Name = "registroCad";
             this.registroCad.Size = new System.Drawing.Size(61, 17);
             this.registroCad.TabIndex = 5;
@@ -402,7 +402,7 @@
             // 
             this.dataFundacao.AutoSize = true;
             this.dataFundacao.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.dataFundacao.Location = new System.Drawing.Point(399, 65);
+            this.dataFundacao.Location = new System.Drawing.Point(431, 75);
             this.dataFundacao.Name = "dataFundacao";
             this.dataFundacao.Size = new System.Drawing.Size(105, 17);
             this.dataFundacao.TabIndex = 4;
@@ -413,7 +413,7 @@
             // 
             this.telefoneCad.AutoSize = true;
             this.telefoneCad.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.telefoneCad.Location = new System.Drawing.Point(409, 104);
+            this.telefoneCad.Location = new System.Drawing.Point(441, 114);
             this.telefoneCad.Name = "telefoneCad";
             this.telefoneCad.Size = new System.Drawing.Size(64, 17);
             this.telefoneCad.TabIndex = 3;
@@ -424,7 +424,7 @@
             // 
             this.nomeCad.AutoSize = true;
             this.nomeCad.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.nomeCad.Location = new System.Drawing.Point(56, 65);
+            this.nomeCad.Location = new System.Drawing.Point(88, 75);
             this.nomeCad.Name = "nomeCad";
             this.nomeCad.Size = new System.Drawing.Size(45, 17);
             this.nomeCad.TabIndex = 1;
@@ -433,7 +433,7 @@
             // 
             // textBoxNomeCad
             // 
-            this.textBoxNomeCad.Location = new System.Drawing.Point(107, 62);
+            this.textBoxNomeCad.Location = new System.Drawing.Point(139, 72);
             this.textBoxNomeCad.MaxLength = 50;
             this.textBoxNomeCad.Name = "textBoxNomeCad";
             this.textBoxNomeCad.Size = new System.Drawing.Size(274, 23);
@@ -446,8 +446,8 @@
             this.tabPageEnderecos.Controls.Add(this.groupBoxEnderecos);
             this.tabPageEnderecos.Location = new System.Drawing.Point(4, 34);
             this.tabPageEnderecos.Name = "tabPageEnderecos";
-            this.tabPageEnderecos.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageEnderecos.Size = new System.Drawing.Size(675, 608);
+            this.tabPageEnderecos.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPageEnderecos.Size = new System.Drawing.Size(721, 608);
             this.tabPageEnderecos.TabIndex = 1;
             this.tabPageEnderecos.Text = "Endereços";
             // 
@@ -507,7 +507,7 @@
             this.dataGridViewEnderecos.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewEnderecos.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dataGridViewEnderecos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewEnderecos.Size = new System.Drawing.Size(669, 375);
+            this.dataGridViewEnderecos.Size = new System.Drawing.Size(715, 375);
             this.dataGridViewEnderecos.TabIndex = 5;
             this.dataGridViewEnderecos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewEnderecos_CellContentClick);
             this.dataGridViewEnderecos.CellMouseLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewEnderecos_CellMouseLeave);
@@ -535,7 +535,7 @@
             this.groupBoxEnderecos.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.groupBoxEnderecos.Location = new System.Drawing.Point(3, 378);
             this.groupBoxEnderecos.Name = "groupBoxEnderecos";
-            this.groupBoxEnderecos.Size = new System.Drawing.Size(669, 227);
+            this.groupBoxEnderecos.Size = new System.Drawing.Size(715, 227);
             this.groupBoxEnderecos.TabIndex = 4;
             this.groupBoxEnderecos.TabStop = false;
             this.groupBoxEnderecos.Text = "Endereços";
@@ -571,7 +571,7 @@
             "SP",
             "SE",
             "TO"});
-            this.textBoxEnderecoUF.Location = new System.Drawing.Point(115, 161);
+            this.textBoxEnderecoUF.Location = new System.Drawing.Point(144, 169);
             this.textBoxEnderecoUF.Name = "textBoxEnderecoUF";
             this.textBoxEnderecoUF.Size = new System.Drawing.Size(121, 24);
             this.textBoxEnderecoUF.TabIndex = 33;
@@ -582,7 +582,7 @@
             this.buttonEnderecoConfirmarSalvar.FlatAppearance.BorderSize = 0;
             this.buttonEnderecoConfirmarSalvar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonEnderecoConfirmarSalvar.Image = ((System.Drawing.Image)(resources.GetObject("buttonEnderecoConfirmarSalvar.Image")));
-            this.buttonEnderecoConfirmarSalvar.Location = new System.Drawing.Point(513, 144);
+            this.buttonEnderecoConfirmarSalvar.Location = new System.Drawing.Point(542, 152);
             this.buttonEnderecoConfirmarSalvar.Name = "buttonEnderecoConfirmarSalvar";
             this.buttonEnderecoConfirmarSalvar.Size = new System.Drawing.Size(60, 57);
             this.buttonEnderecoConfirmarSalvar.TabIndex = 34;
@@ -597,7 +597,7 @@
             this.buttonEnderecoExcluir.FlatAppearance.BorderSize = 0;
             this.buttonEnderecoExcluir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonEnderecoExcluir.Image = ((System.Drawing.Image)(resources.GetObject("buttonEnderecoExcluir.Image")));
-            this.buttonEnderecoExcluir.Location = new System.Drawing.Point(101, 25);
+            this.buttonEnderecoExcluir.Location = new System.Drawing.Point(130, 33);
             this.buttonEnderecoExcluir.Name = "buttonEnderecoExcluir";
             this.buttonEnderecoExcluir.Size = new System.Drawing.Size(35, 34);
             this.buttonEnderecoExcluir.TabIndex = 41;
@@ -609,7 +609,7 @@
             this.buttonEnderecoEditar.FlatAppearance.BorderSize = 0;
             this.buttonEnderecoEditar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonEnderecoEditar.Image = ((System.Drawing.Image)(resources.GetObject("buttonEnderecoEditar.Image")));
-            this.buttonEnderecoEditar.Location = new System.Drawing.Point(55, 25);
+            this.buttonEnderecoEditar.Location = new System.Drawing.Point(84, 33);
             this.buttonEnderecoEditar.Name = "buttonEnderecoEditar";
             this.buttonEnderecoEditar.Size = new System.Drawing.Size(54, 34);
             this.buttonEnderecoEditar.TabIndex = 40;
@@ -622,7 +622,7 @@
             this.buttonEnderecoNovo.FlatAppearance.BorderSize = 0;
             this.buttonEnderecoNovo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonEnderecoNovo.Image = ((System.Drawing.Image)(resources.GetObject("buttonEnderecoNovo.Image")));
-            this.buttonEnderecoNovo.Location = new System.Drawing.Point(19, 25);
+            this.buttonEnderecoNovo.Location = new System.Drawing.Point(48, 33);
             this.buttonEnderecoNovo.Name = "buttonEnderecoNovo";
             this.buttonEnderecoNovo.Size = new System.Drawing.Size(46, 34);
             this.buttonEnderecoNovo.TabIndex = 39;
@@ -632,7 +632,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(83, 164);
+            this.label3.Location = new System.Drawing.Point(112, 172);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(26, 17);
             this.label3.TabIndex = 37;
@@ -640,7 +640,7 @@
             // 
             // textBoxEnderecoCidade
             // 
-            this.textBoxEnderecoCidade.Location = new System.Drawing.Point(115, 110);
+            this.textBoxEnderecoCidade.Location = new System.Drawing.Point(144, 118);
             this.textBoxEnderecoCidade.Name = "textBoxEnderecoCidade";
             this.textBoxEnderecoCidade.Size = new System.Drawing.Size(233, 23);
             this.textBoxEnderecoCidade.TabIndex = 31;
@@ -648,7 +648,7 @@
             // EnderecoCidade
             // 
             this.EnderecoCidade.AutoSize = true;
-            this.EnderecoCidade.Location = new System.Drawing.Point(57, 113);
+            this.EnderecoCidade.Location = new System.Drawing.Point(86, 121);
             this.EnderecoCidade.Name = "EnderecoCidade";
             this.EnderecoCidade.Size = new System.Drawing.Size(52, 17);
             this.EnderecoCidade.TabIndex = 35;
@@ -656,7 +656,7 @@
             // 
             // textBoxEnderecoBairro
             // 
-            this.textBoxEnderecoBairro.Location = new System.Drawing.Point(433, 107);
+            this.textBoxEnderecoBairro.Location = new System.Drawing.Point(462, 115);
             this.textBoxEnderecoBairro.Name = "textBoxEnderecoBairro";
             this.textBoxEnderecoBairro.Size = new System.Drawing.Size(140, 23);
             this.textBoxEnderecoBairro.TabIndex = 32;
@@ -664,7 +664,7 @@
             // EnderecoBairro
             // 
             this.EnderecoBairro.AutoSize = true;
-            this.EnderecoBairro.Location = new System.Drawing.Point(381, 110);
+            this.EnderecoBairro.Location = new System.Drawing.Point(410, 118);
             this.EnderecoBairro.Name = "EnderecoBairro";
             this.EnderecoBairro.Size = new System.Drawing.Size(46, 17);
             this.EnderecoBairro.TabIndex = 33;
@@ -672,7 +672,7 @@
             // 
             // textBoxEnderecoNumero
             // 
-            this.textBoxEnderecoNumero.Location = new System.Drawing.Point(487, 65);
+            this.textBoxEnderecoNumero.Location = new System.Drawing.Point(516, 73);
             this.textBoxEnderecoNumero.Name = "textBoxEnderecoNumero";
             this.textBoxEnderecoNumero.Size = new System.Drawing.Size(86, 23);
             this.textBoxEnderecoNumero.TabIndex = 30;
@@ -680,7 +680,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(423, 68);
+            this.label9.Location = new System.Drawing.Point(452, 76);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(58, 17);
             this.label9.TabIndex = 31;
@@ -689,7 +689,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(75, 65);
+            this.label10.Location = new System.Drawing.Point(104, 73);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(34, 17);
             this.label10.TabIndex = 30;
@@ -697,7 +697,7 @@
             // 
             // textBoxEnderecoRua
             // 
-            this.textBoxEnderecoRua.Location = new System.Drawing.Point(115, 65);
+            this.textBoxEnderecoRua.Location = new System.Drawing.Point(144, 73);
             this.textBoxEnderecoRua.Name = "textBoxEnderecoRua";
             this.textBoxEnderecoRua.Size = new System.Drawing.Size(273, 23);
             this.textBoxEnderecoRua.TabIndex = 29;
@@ -726,9 +726,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.SystemColors.Info;
-            this.ClientSize = new System.Drawing.Size(683, 671);
+            this.ClientSize = new System.Drawing.Size(729, 671);
             this.Controls.Add(this.tabControlClientes);
             this.Controls.Add(this.menuStrip1);
+            this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";

@@ -1,161 +1,122 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.IO;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace CadastroCliente.DAO
 {
-    class ClienteDAO
+    public class ClienteDAO
     {
-        static string connectionString = "Data Source=dbserver-dev;Initial Catalog=treinamento;User ID=treinamento;Password=treinamento";
-
-        public static DataTable CarregarClientes(int? idCliente = null)
+        public static DataTable CarregarClientes(int? cdCliente = null)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            string query = "SELECT cd_cliente AS Codigo, nm_cliente AS Nome, dt_fundacao AS DataFundacao, telefone AS Telefone, registro AS Registro FROM cliente";
+            SqlParameter[] parameters = null;
+
+            if (cdCliente.HasValue)
             {
-                string queryClientes = "SELECT id_cliente AS Codigo, nome AS Nome, data_fundacao AS DataFundacao, telefone AS Telefone, registro AS Registro FROM clientes";
-
-                if (idCliente.HasValue)
+                query += " WHERE cd_cliente = @cd_cliente";
+                parameters = new SqlParameter[]
                 {
-                    queryClientes += " WHERE id_cliente = @idCliente";
-                }
+                    new SqlParameter("@cd_cliente", cdCliente.Value)
+                };
+            }
 
-                try
-                {
-                    connection.Open();
-                    SqlDataAdapter dataAdapter = new SqlDataAdapter(queryClientes, connection);
-
-                    if (idCliente.HasValue)
-                    {
-                        dataAdapter.SelectCommand.Parameters.AddWithValue("@idCliente", idCliente.Value);
-                    }
-
-                    DataTable dataTable = new DataTable();
-                    dataAdapter.Fill(dataTable);
-                    return dataTable;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Erro ao carregar clientes: " + ex.Message);
-                    return new DataTable();
-                }
+            try
+            {
+                DataSet ds = DatabaseConnection.ExecuteQuery(query, parameters);
+                return ds.Tables[0];
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao carregar clientes: " + ex.Message);
+                return new DataTable();
             }
         }
 
         public static DataTable CarregarClientesComEndereco()
         {
-            string query = "SELECT * FROM vw_clientes_completo";
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            string query = "SELECT * FROM vw_clientes_com_endereco";
+            try
             {
-                SqlDataAdapter dataAdapter = new SqlDataAdapter(query, connection);
-                DataTable dataTable = new DataTable();
-                dataAdapter.Fill(dataTable);
-                //dataGridViewClientes.DataSource = dt;
-                return dataTable;
+                DataSet ds = DatabaseConnection.ExecuteQuery(query);
+                return ds.Tables[0];
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao carregar clientes com endereço: " + ex.Message);
+                return new DataTable();
             }
         }
 
-        public static void IncluirCliente(int clienteIdAtual, string nome, string data_fundacao, string telefone, string registro)
+        public static void IncluirCliente(string nome, string data_fundacao, string telefone, string registro)
         {
-            clienteIdAtual = 0;
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            string query = "INSERT INTO cliente (nm_cliente, dt_fundacao, telefone, registro) " +
+                           "OUTPUT INSERTED.cd_cliente " +
+                           "VALUES (@nm_cliente, @dt_fundacao, @telefone, @registro)";
+
+            SqlParameter[] parameters = new SqlParameter[]
             {
-                string queryCliente = "INSERT INTO Clientes (nome, data_fundacao, telefone, registro) " +
-                                      "OUTPUT INSERTED.id_cliente " +
-                                      "VALUES (@nome, @data_fundacao, @telefone, @registro)";
+                new SqlParameter("@nm_cliente", nome),
+                new SqlParameter("@dt_fundacao", DateTime.Parse(data_fundacao)),
+                new SqlParameter("@telefone", new string(telefone.Where(char.IsDigit).ToArray())),
+                new SqlParameter("@registro", new string(registro.Where(char.IsDigit).ToArray()))
+            };
 
-                try
-                {
-                    connection.Open();
-
-                    SqlCommand commandCliente = new SqlCommand(queryCliente, connection);
-                    commandCliente.Parameters.AddWithValue("@nome", nome);
-                    commandCliente.Parameters.AddWithValue("@data_fundacao", DateTime.Parse(data_fundacao));
-                    commandCliente.Parameters.AddWithValue("@telefone", new string(telefone.Where(char.IsDigit).ToArray()));
-                    commandCliente.Parameters.AddWithValue("@registro", new string(registro.Where(char.IsDigit).ToArray()));
-
-                    clienteIdAtual = (int)commandCliente.ExecuteScalar();
-
-                    MessageBox.Show("Cliente salvo com sucesso!");
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Erro ao salvar cliente: " + ex.Message);
-                }
+            try
+            {
+                DataSet ds = DatabaseConnection.ExecuteQuery(query, parameters);
+                int clienteIdAtual = (int)ds.Tables[0].Rows[0]["cd_cliente"];
+                MessageBox.Show("Cliente salvo com sucesso! ID: " + clienteIdAtual);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao salvar cliente: " + ex.Message);
             }
         }
-
 
         public static void AtualizarCliente(int id, string nome, string data_fundacao, string telefone, string registro)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            string query = "UPDATE cliente SET nm_cliente = @nm_cliente, dt_fundacao = @dt_fundacao, telefone = @telefone, registro = @registro WHERE cd_cliente = @cd_cliente";
+
+            SqlParameter[] parameters = new SqlParameter[]
             {
-                string queryCliente = "UPDATE Clientes SET nome = @nome, data_fundacao = @data_fundacao, telefone = @telefone, registro = @registro WHERE id_cliente = @id";
+                new SqlParameter("@nm_cliente", nome),
+                new SqlParameter("@dt_fundacao", DateTime.Parse(data_fundacao)),
+                new SqlParameter("@telefone", new string(telefone.Where(char.IsDigit).ToArray())),
+                new SqlParameter("@registro", new string(registro.Where(char.IsDigit).ToArray())),
+                new SqlParameter("@cd_cliente", id)
+            };
 
-                try
-                {
-                    connection.Open();
-
-                    SqlCommand commandCliente = new SqlCommand(queryCliente, connection);
-                    commandCliente.Parameters.AddWithValue("@nome", nome);
-                    commandCliente.Parameters.AddWithValue("@data_fundacao", DateTime.Parse(data_fundacao));
-                    commandCliente.Parameters.AddWithValue("@telefone", new string(telefone.Where(char.IsDigit).ToArray()));
-                    commandCliente.Parameters.AddWithValue("@registro", new string(registro.Where(char.IsDigit).ToArray()));
-                    commandCliente.Parameters.AddWithValue("@id", id);
-
-                    commandCliente.ExecuteNonQuery();
-
-                    MessageBox.Show("Cliente atualizado com sucesso!");
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Erro ao atualizar cliente: " + ex.Message);
-                }
+            try
+            {
+                DatabaseConnection.ExecuteNonQuery(query, parameters);
+                MessageBox.Show("Cliente atualizado com sucesso!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao atualizar cliente: " + ex.Message);
             }
         }
-
 
         public static void ExcluirCliente(int id)
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            string query = "DELETE FROM cliente WHERE cd_cliente = @cd_cliente";
+
+            SqlParameter[] parameters = new SqlParameter[]
             {
-                //string queryExcluirEnderecos = "DELETE FROM Enderecos WHERE cliente_id = @cliente_id";
-                string queryExcluirCliente = "DELETE FROM Clientes WHERE id_cliente = @id";
+                new SqlParameter("@cd_cliente", id)
+            };
 
-                try
-                {
-                    connection.Open();
-
-                    //SqlCommand commandExcluirEnderecos = new SqlCommand(queryExcluirEnderecos, connection);
-                    //commandExcluirEnderecos.Parameters.AddWithValue("@cliente_id", id);
-                    //commandExcluirEnderecos.ExecuteNonQuery();
-
-                    SqlCommand commandExcluirCliente = new SqlCommand(queryExcluirCliente, connection);
-                    commandExcluirCliente.Parameters.AddWithValue("@id", id);
-                    commandExcluirCliente.ExecuteNonQuery();
-
-                    MessageBox.Show("Cliente e seus endereços excluídos com sucesso!");
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Erro ao excluir cliente: " + ex.Message);
-                }
+            try
+            {
+                DatabaseConnection.ExecuteNonQuery(query, parameters);
+                MessageBox.Show("Cliente excluído com sucesso!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao excluir cliente: " + ex.Message);
             }
         }
-
-
-        // Atualizando a fonte de dados da grid de clientes
-        // ClienteDAO.CarregarClientesComEndereco();
-        // Método para carregar clientes com endereços
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
     }
 }
